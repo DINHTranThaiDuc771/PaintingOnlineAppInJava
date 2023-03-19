@@ -65,15 +65,13 @@ public class PanelHaut extends JPanel implements ItemListener
         {
             if ( !this.cbCarre.isSelected() )
             {
-                this.cbTexte.setEnabled(true);
-                this.cbRond.setEnabled(true);
-                this.cbLigne.setEnabled(true);
+                this.cbCarre.setSelected(false);
             }
             else
             {
-                this.cbTexte.setEnabled(false);
-                this.cbRond.setEnabled(false);
-                this.cbLigne.setEnabled(false);
+                if ( this.cbRond.isSelected() ) this.cbRond.setSelected(false);
+                if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
+                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
             }
         }
 
@@ -81,15 +79,13 @@ public class PanelHaut extends JPanel implements ItemListener
         {
             if ( !this.cbRond.isSelected() )
             {
-                this.cbTexte.setEnabled(true);
-                this.cbCarre.setEnabled(true);
-                this.cbLigne.setEnabled(true);
+                this.cbRond.setSelected(false);
             }
             else
             {
-                this.cbTexte.setEnabled(false);
-                this.cbCarre.setEnabled(false);
-                this.cbLigne.setEnabled(false);
+                if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
+                if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
+                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
             }
         }
 
@@ -97,15 +93,13 @@ public class PanelHaut extends JPanel implements ItemListener
         {
             if ( !this.cbLigne.isSelected() )
             {
-                this.cbCarre.setEnabled(true);
-                this.cbRond.setEnabled(true);
-                this.cbTexte.setEnabled(true);
+                this.cbLigne.setSelected(false);
             }
             else
             {
-                this.cbCarre.setEnabled(false);
-                this.cbRond.setEnabled(false);
-                this.cbTexte.setEnabled(false);
+                if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
+                if ( this.cbRond.isSelected() ) this.cbRond.setSelected(false);
+                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
             }
         }
 
@@ -113,15 +107,13 @@ public class PanelHaut extends JPanel implements ItemListener
         {
             if ( !this.cbTexte.isSelected() )
             {
-                this.cbCarre.setEnabled(true);
-                this.cbRond.setEnabled(true);
-                this.cbLigne.setEnabled(true);
+                this.cbTexte.setSelected(false);
             }
             else
             {
-                this.cbCarre.setEnabled(false);
-                this.cbRond.setEnabled(false);
-                this.cbLigne.setEnabled(false);
+                if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
+                if ( this.cbRond.isSelected() ) this.cbRond.setSelected(false);
+                if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
             }
         }
     }
