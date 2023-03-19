@@ -27,7 +27,7 @@ public class FramePrincipale extends JFrame
         //Paramètres de la frame
         Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.setTitle("Algorithme Bellman-Ford");
-        this.setSize(dimEcran.width, dimEcran.height); // Définition d'une taille minimum (obligatoire)
+        //this.setSize(dimEcran.width, dimEcran.height); // Définition d'une taille minimum (obligatoire)
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Ouvre la fenêtre en pleine écran
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
