@@ -1,15 +1,27 @@
 package ihm.panels;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.*;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;
 
-public class PanelCentral extends JPanel implements MouseListener, MouseMotionListener
+public class PanelCentral extends JPanel implements ActionListener, MouseListener, MouseMotionListener
 {
     private Controleur ctrl;
     private static final long serialVersionUID = 1L;
@@ -17,62 +29,56 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
     public PanelCentral(Controleur ctrl)
     {
         this.ctrl = ctrl;
+
+        Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
+        //this.setPreferredSize(new Dimension((int)dimEcran.getWidth(), 800));
         this.setBackground(Color.WHITE);
-        this.addMouseListener(this);
-		this.addMouseMotionListener(this);
+        this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+
+        this.addMouseMotionListener(this);
+        this.addMouseListener      (this);
+    }
+
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
 
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    }
+
+    @Override
     public void mousePressed(MouseEvent e) {
-		updateStartingPoint(e);
-	}
-
-	public void mouseDragged(MouseEvent e) {
-		updateLineCoordinates(e);
-		repaint();
-	}
-
-	private void updateStartingPoint(MouseEvent e) {
-		startX = e.getX();
-		startY = e.getY();
-	}
-
-	private void updateLineCoordinates(MouseEvent e) {
-		tempX = e.getX();
-		tempY = e.getY();
-	}
-    protected void paintComponent(Graphics graphics) {
-		paintLine(graphics);
-	}
-
-	
-
-    private void paintLine(Graphics graphics) {
-		// Draws the line in red
-		Graphics2D brush = (Graphics2D) graphics;
-		brush.setColor(Color.RED);
-		brush.setPaintMode();
-		brush.drawLine(startX, startY, tempX, tempY);
-		startX = tempX;
-		startY = tempY;
-	}
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
     }
-    @Override
-    public void mouseClicked(MouseEvent e) {
 
-    }
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
     }
+
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) 
+    {
+		if (SwingUtilities.isLeftMouseButton(e))
+		{
+			//Point p = new Point( (int) ((e.getX() - this.xDecalage) * (1 / this.facteurZoom)), 
+			//                     (int) ((e.getY() - this.yDecalage) * (1 / this.facteurZoom)) );
 
+			//this.panelImage.checkArete(p);
+		}
     }
-    @Override
-    public void mouseExited(MouseEvent e) {
 
-    }
+    //On n'utilisera pas les méthodes ci-dessous
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {}
+    public void mouseMoved(MouseEvent e) {}
 }
