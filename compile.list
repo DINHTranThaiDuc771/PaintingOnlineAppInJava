@@ -1,0 +1,11 @@
+./metier/Metier.java
+
+./ihm/frames/FramePrincipale.java
+./ihm/panels/PanelCentral.java
+./ihm/panels/PanelBas.java
+./ihm/panels/PanelHaut.java
+./ihm/Ihm.java
+
+./controleur/Controleur.java
+
+-d bin
