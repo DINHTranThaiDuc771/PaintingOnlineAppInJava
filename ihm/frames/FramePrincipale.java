@@ -9,7 +9,8 @@ import ihm.panels.PanelBas;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 public class FramePrincipale extends JFrame
@@ -25,12 +26,12 @@ public class FramePrincipale extends JFrame
         this.ctrl = ctrl;
 
         //Paramètres de la frame
-        Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setTitle("Algorithme Bellman-Ford");
-        //this.setSize(dimEcran.width, dimEcran.height); // Définition d'une taille minimum (obligatoire)
+        this.setTitle("Application de dessin partagé");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Ouvre la fenêtre en pleine écran
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
+        Image icon = Toolkit.getDefaultToolkit().getImage("./donnees/logo.png");    
+        this.setIconImage(icon);    
 
         //Création des panels
         this.panelHaut = new PanelHaut(this.ctrl);
@@ -43,4 +44,7 @@ public class FramePrincipale extends JFrame
 
         this.setVisible(true);
     }
+
+    public Color getCouleurChoisi() { return this.panelBas.getCouleurChoisi(); }
+    public String getForme()        { return this.panelHaut.getForme(); }
 }
