@@ -95,10 +95,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         if (SwingUtilities.isLeftMouseButton(e)) {
 
             this.pointA = new Point((int) e.getX(), (int) e.getY());
-            int xA, yA;
-            xA = (int) this.pointA.getX();
-            yA = (int) this.pointA.getY();     
-
         }
     }
 
@@ -181,6 +177,8 @@ this.dialogTexte = new JDialog();
                     break;
                 case "Ligne":
                     this.ctrl.addLigne(xA, yA, xB, yB);
+                    this.repaint();
+                    break;
 
                 case " ":
                     System.out.println("Aucune forme sélectionné");
