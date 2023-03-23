@@ -100,14 +100,42 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
             int xA, yA;
             xA = (int) this.pointA.getX();
             yA = (int) this.pointA.getY();     
+
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+        this.pointB = new Point((int) e.getX(), (int) e.getY());
+
+        int xA = (int) this.pointA.getX();
+        int yA = (int) this.pointA.getY();
+        int xB = (int) this.pointB.getX();
+        int yB = (int) this.pointB.getY(); 
+        if (SwingUtilities.isLeftMouseButton(e)) {
             switch (this.ctrl.getForme()) {
                 case "Carre":
-                    ctrl.addCarre(xA, yA, 30, 30);
+                    if (xB - xA > 0 && yB - yA > 0)
+                        ctrl.addCarre(xA, yA, xB-xA, yB-yA);
+                    if (xB - xA > 0 && yB - yA < 0)
+                        ctrl.addCarre(xA, yB, xB-xA, yA-yB);
+                    if (xB - xA < 0 && yB - yA > 0)
+                        ctrl.addCarre(xB, yA, xA-xB, yB-yA);
+                    if (xB - xA < 0 && yB - yA < 0)
+                        ctrl.addCarre(xB, yB, xA-xB, yA-yB);
                     this.repaint();
                     break;
 
                 case "Rond":
-                    ctrl.addCercle(xA, yA, 30, 30);
+                    if (xB - xA > 0 && yB - yA > 0)
+                        ctrl.addCercle(xA, yA, xB-xA, yB-yA);
+                    if (xB - xA > 0 && yB - yA < 0)
+                        ctrl.addCercle(xA, yB, xB-xA, yA-yB);
+                    if (xB - xA < 0 && yB - yA > 0)
+                        ctrl.addCercle(xB, yA, xA-xB, yB-yA);
+                    if (xB - xA < 0 && yB - yA < 0)
+                        ctrl.addCercle(xB, yB, xA-xB, yA-yB);
                     this.repaint();
                     break;
 
@@ -145,6 +173,8 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     if (texte != null && texte != "" && texte != " ")
                         // g2d.drawString(texte, xA, yA);
                     break;
+                case "Ligne":
+                    this.ctrl.addLigne(xA, yA, xB, yB);
 
                 case " ":
                     System.out.println("Aucune forme sélectionné");
@@ -154,19 +184,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     System.out.println("Choix incorrect");
                     break;
             }
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        int xA = (int) this.pointA.getX();
-        int yA = (int) this.pointA.getY();
-        if (SwingUtilities.isLeftMouseButton(e)) {
-            this.pointB = new Point((int) e.getX(), (int) e.getY());
-            int xB = (int) this.pointB.getX();
-            int yB = (int) this.pointB.getY();  
-            if(this.ctrl.getForme().equals("Ligne"))
-                this.ctrl.addLigne(xA, yA, xB, yB);
             this.repaint();
         }
 
