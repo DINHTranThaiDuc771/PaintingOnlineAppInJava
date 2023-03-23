@@ -8,26 +8,19 @@ import controleur.Controleur;
 public class Metier {
     private Controleur ctrl;
 
-    private ArrayList<Ligne>  alLignes;
-    private ArrayList<Carre>  alCarres;
-    private ArrayList<Texte>  alTextes;
-    private ArrayList<Cercle> alCercles;
+    private ArrayList<>  alForme;
 
     public Metier(Controleur ctrl){
         this.ctrl = ctrl;
 
-        this.alLignes  = new ArrayList<Ligne> ();
-        this.alCarres  = new ArrayList<Carre> ();
-        this.alTextes  = new ArrayList<Texte> ();
-        this.alCercles = new ArrayList<Cercle>();
+        this.alForme  = new ArrayList<> ();
     }
 
-
-    public void ajouterLigne(int xA, int yA, int xB, int yB, int epaisseur){
+    public void addLigne(int xA, int yA, int xB, int yB, int epaisseur){
         this.alLignes.add(new Ligne(xA, yA, xB, yB, this.ctrl.getCouleurChoisi(), epaisseur));
     }
 
-    public void ajouterCarre(int xA, int yA, int width, int height){
+    public void addCarre(int xA, int yA, int width, int height){
         this.alCarres.add(new Carre(xA, yA, width, height, this.ctrl.getCouleurChoisi()));
     }
 }

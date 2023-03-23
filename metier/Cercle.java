@@ -2,12 +2,13 @@ package metier;
 
 import java.awt.Color;
 
-public class Cercle {
+public class Cercle extends Forme {
     private int x;
     private int y;
     private int width;
     private int height;
     private Color couleur;
+
     public Cercle (int x, int y, int width, int height)
     {
         this.x = x;
@@ -17,4 +18,3 @@ public class Cercle {
 
     }
 }
-

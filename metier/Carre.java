@@ -2,7 +2,7 @@ package metier;
 
 import java.awt.Color;
 
-public class Carre {
+public class Carre extends Forme{
     private int xA;
     private int yA;
     private int width;
@@ -49,6 +49,12 @@ public class Carre {
         this.height = height;
     }
 
+    public Color getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
+    }
 
 }
-

@@ -2,7 +2,7 @@ package metier;
 
 import java.awt.Color;
 
-public class Ligne {
+public class Ligne extends Forme{
     /*  */
     private int xA;
     private int xB;

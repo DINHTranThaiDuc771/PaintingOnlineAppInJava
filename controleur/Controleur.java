@@ -21,6 +21,11 @@ public class Controleur
     public Metier getMetier()                   { return this.metier; }
     public Color getCouleurChoisi()             { return this.frmPrincipale.getCouleurChoisi(); }
     public String getForme()                    { return this.frmPrincipale.getForme(); }
+
+    public void addCarre(int xA, int yA, int width, int height){
+        this.metier.addCarre(xA, yA, width, height);
+    }
+
     public static void main(String[] args)
     {
         new Controleur();

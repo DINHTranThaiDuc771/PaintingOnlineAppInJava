@@ -25,6 +25,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.JDialog;
 
 import controleur.Controleur;
+import metier.Carre;
 
 public class PanelCentral extends JPanel implements ActionListener, MouseListener, MouseMotionListener
 {
@@ -72,9 +73,15 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         xB = (int) this.pointB.getX();
         yB = (int) this.pointB.getY();
         
+        
+        /* Redessiner tous les carrés déjà présent dans l'ArrayList */
+        /*for(Carre c : this.ctrl.getMetier().getAlCarres() )
+            g2d.drawRect(c.getXA(), c.getYA(), c.getWidth(), c.getHeight()); */
+
         switch ( this.ctrl.getForme() )
         {
-            case "Carre" :  g2d.drawRect(xA, yA, 30, 30);
+            case "Carre" :  ctrl.addCarre(xA, yA, 30, 30);
+                            this.repaint();
                             break;
 
             case "Rond" :   g2d.fillOval(xA, yA, 30, 30);

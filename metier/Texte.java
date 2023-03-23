@@ -1,6 +1,6 @@
 package metier;
 
-public class Texte {
+public class Texte extends Forme{
     
 }
 
