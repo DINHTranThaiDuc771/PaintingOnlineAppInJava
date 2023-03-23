@@ -2,7 +2,7 @@ package ihm.panels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -12,15 +12,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.JDialog;
 
@@ -36,12 +34,13 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     private JDialog dialogTexte;
     private String texte;
     private PanelChoisirTexte panelChoisirTexte;
-
+    private Dimension dimEcran;
+    private JTextField textField;
     private static final long serialVersionUID = 1L;
 
     public PanelCentral(Controleur ctrl) {
         this.ctrl = ctrl;
-
+        this.setLayout(null);
         // Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
         // this.setPreferredSize(new Dimension((int)dimEcran.getWidth(), 800));
         this.setBackground(Color.WHITE);
@@ -65,7 +64,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(4));
-
 
         /* Redessiner tous les carrés déjà présent dans l'ArrayList */
         for (Forme c : this.ctrl.getMetier().getAlFormes()) {
@@ -95,7 +93,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     public void mousePressed(MouseEvent e) {
 
         if (SwingUtilities.isLeftMouseButton(e)) {
-            
+
             this.pointA = new Point((int) e.getX(), (int) e.getY());
             int xA, yA;
             xA = (int) this.pointA.getX();
@@ -114,6 +112,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         int xB = (int) this.pointB.getX();
         int yB = (int) this.pointB.getY(); 
         if (SwingUtilities.isLeftMouseButton(e)) {
+            yA = (int) this.pointA.getY();
             switch (this.ctrl.getForme()) {
                 case "Carre":
                     if (xB - xA > 0 && yB - yA > 0)
@@ -139,39 +138,46 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     this.repaint();
                     break;
 
-
-
                 case "Texte":
-                    ImageIcon icon = new ImageIcon("./donnees/logo.png");
-                    // String texte = (String) JOptionPane.showInputDialog(null,"Entrez votre texte
-                    // :\n","Texte à afficher",JOptionPane.QUESTION_MESSAGE,icon,null,"");
+                    /*ImageIcon icon = new ImageIcon("./donnees/logo.png");
+                     String texte = (String) JOptionPane.showInputDialog(null,"Entrez votre texte
+                     :\n","Texte à afficher",JOptionPane.QUESTION_MESSAGE,icon,null,"");
                     this.dialogTexte = new JDialog();
-                    // this.panelChoisirTexte = new PanelChoisirTexte(this.ctrl,
-                    // this.lstJoueurs.get(cpt));
+                     this.panelChoisirTexte = new PanelChoisirTexte(this.ctrl,
+                     this.lstJoueurs.get(cpt));
 
                     this.dialogTexte.setSize(400, 200);
-                    this.dialogTexte.setLocation(200, 50);
+                    this.dialogTexte.setLocation(xA, yA);
                     this.dialogTexte.setResizable(false);
-                    // this.dialogTexte.add(this.panelInfosJoueur);
+                    this.dialogTexte.add(this);
                     this.dialogTexte.pack();
                     this.dialogTexte.setVisible(true);
 
-                    /* Permet de detecter la fermeture de la fenêtre de dialogue */
-                    /*
-                     * this.dialogTexte.addWindowListener(new WindowListener()
-                     * {
-                     * public void windowClosing (WindowEvent e) {}
-                     * public void windowOpened (WindowEvent e) {}
-                     * public void windowClosed (WindowEvent e) {}
-                     * public void windowIconified (WindowEvent e) {}
-                     * public void windowDeiconified(WindowEvent e) {}
-                     * public void windowActivated (WindowEvent e) {}
-                     * public void windowDeactivated(WindowEvent e) { this.dialogTexte.dispose(); }
-                     * });
-                     */
-                    // g.setFont(new Font("TimesRoman", Font.BOLD, 16));
-                    if (texte != null && texte != "" && texte != " ")
-                        // g2d.drawString(texte, xA, yA);
+                     Permet de detecter la fermeture de la fenêtre de dialogue 
+                    this.dialogTexte.addWindowListener(new WindowListener()
+                    {
+                        public void windowClosing    (WindowEvent e) {}
+                        public void windowOpened     (WindowEvent e) {}
+                        public void windowClosed     (WindowEvent e) {}
+                        public void windowIconified  (WindowEvent e) {}
+                        public void windowDeiconified(WindowEvent e) {}
+                        public void windowActivated  (WindowEvent e) {}
+                        public void windowDeactivated(WindowEvent e) { dialogTexte.dispose();}
+                    });
+this.dialogTexte = new JDialog();
+                    this.panelChoisirTexte  = new PanelChoisirTexte(this.ctrl);
+
+                    this.dialogTexte.setSize((int)this.dimEcran.getWidth()/4, (int)this.dimEcran.getHeight()/10);
+                    this.dialogTexte.setLocation((int)dimEcran.getWidth()/3, (int)dimEcran.getHeight()/4);
+                    this.dialogTexte.setResizable(false);
+                    this.dialogTexte.add(this.panelChoisirTexte);
+                    this.dialogTexte.setVisible(true);*/
+
+                    this.textField = new JTextField();
+                    textField.setBounds(xA, yA, 100, 30);
+                    textField.setBorder(null);
+
+                    this.add(textField);
                     break;
                 case "Ligne":
                     this.ctrl.addLigne(xA, yA, xB, yB);
@@ -184,10 +190,10 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     System.out.println("Choix incorrect");
                     break;
             }
-            this.repaint();
         }
-
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -198,7 +204,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     public void mouseClicked(MouseEvent e) {
 
     }
-
 
     public void mouseDragged(MouseEvent e) {
         this.pointB = new Point((int) e.getX(), (int) e.getY());

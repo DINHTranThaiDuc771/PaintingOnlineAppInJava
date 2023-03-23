@@ -47,4 +47,8 @@ public class FramePrincipale extends JFrame
 
     public Color getCouleurChoisi() { return this.panelBas.getCouleurChoisi(); }
     public String getForme()        { return this.panelHaut.getForme(); }
+
+    public void setTexte(String texte) {
+        this.panelCentral.setTexte(texte);
+    }
 }

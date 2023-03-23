@@ -34,6 +34,8 @@ public class Controleur
         this.metier.addCercle(xA, yA, width, height);
     }
 
+    public void setTexte(String texte)        { this.frmPrincipale.setTexte(texte); }
+
     public static void main(String[] args)
     {
         new Controleur();
