@@ -34,9 +34,9 @@ public class FramePrincipale extends JFrame
         this.setIconImage(icon);    
 
         //Création des panels
-        this.panelHaut = new PanelHaut(this.ctrl);
+        this.panelHaut    = new PanelHaut(this.ctrl);
         this.panelCentral = new PanelCentral(this.ctrl);
-        this.panelBas = new PanelBas(this.ctrl);
+        this.panelBas     = new PanelBas(this.ctrl);
 
         this.add(this.panelHaut, BorderLayout.NORTH);
         this.add(this.panelCentral, BorderLayout.CENTER);
