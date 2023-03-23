@@ -49,6 +49,14 @@ public class Ligne extends Forme{
         this.yA = yA;
     }
 
+    public int getYB() {
+        return yB;
+    }
+
+    public void setYB(int yB) {
+        this.yB = yB;
+    }
+
     public Color getCouleur() {
         return couleur;
     }

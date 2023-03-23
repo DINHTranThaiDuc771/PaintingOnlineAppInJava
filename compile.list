@@ -3,6 +3,7 @@
 ./metier/Carre.java
 ./metier/Ligne.java
 ./metier/Texte.java
+./metier/Forme.java
 
 ./ihm/frames/FramePrincipale.java
 ./ihm/panels/PanelCentral.java

@@ -26,8 +26,18 @@ public class Controleur
         this.metier.addCarre(xA, yA, width, height);
     }
 
+    public void addLigne(int xA, int yA, int xB, int yB) {
+        this.metier.addLigne(xA, yA, xB, yB, 1);
+    }
+
+    public void addCercle(int xA, int yA, int width, int height) {
+        this.metier.addCercle(xA, yA, width, height);
+    }
+
     public static void main(String[] args)
     {
         new Controleur();
     }
+
+    
 }

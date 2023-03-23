@@ -56,5 +56,4 @@ public class Carre extends Forme{
     public void setCouleur(Color couleur) {
         this.couleur = couleur;
     }
-
 }
