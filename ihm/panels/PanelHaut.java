@@ -155,7 +155,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
     {
         if ( e.getSource() == this.btnUndo )
         {
-
+            this.ctrl.undo();
         }
 
         if ( e.getSource() == this.btnPleinVide ) 

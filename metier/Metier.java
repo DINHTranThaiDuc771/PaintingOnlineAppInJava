@@ -26,9 +26,15 @@ public class Metier {
     public void addCercle(int xA, int yA, int width, int height){
         this.alForme.add(new Cercle(xA, yA, width, height, this.ctrl.getCouleurChoisi()));
     }
-
+    public void undo() 
+    {
+        if (!this.alForme.isEmpty())
+            this.alForme.remove(this.alForme.size()-1);
+    }
     /*----------------------- */
     /* Getters and Setters    */
     /*----------------------- */
     public ArrayList<Forme> getAlFormes() { return this.alForme; }
+
+
 }

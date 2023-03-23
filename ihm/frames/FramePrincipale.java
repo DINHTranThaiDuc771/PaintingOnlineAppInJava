@@ -51,4 +51,8 @@ public class FramePrincipale extends JFrame
     public void setTexte(String texte) {
         this.panelCentral.setTexte(texte);
     }
+
+    public void majIHM() {
+        this.panelCentral.repaint();
+    }
 }

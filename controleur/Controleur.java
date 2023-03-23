@@ -35,11 +35,17 @@ public class Controleur
     }
 
     public void setTexte(String texte)        { this.frmPrincipale.setTexte(texte); }
-
+    public void undo() 
+    {
+        this.metier.undo();
+        this.frmPrincipale.majIHM();
+    }
     public static void main(String[] args)
     {
         new Controleur();
     }
+
+
 
     
 }
