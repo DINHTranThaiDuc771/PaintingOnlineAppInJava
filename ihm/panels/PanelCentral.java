@@ -91,13 +91,13 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
             case "Texte" :  ImageIcon icon = new ImageIcon("./donnees/logo.png");
                             //String texte = (String) JOptionPane.showInputDialog(null,"Entrez votre texte :\n","Texte à afficher",JOptionPane.QUESTION_MESSAGE,icon,null,"");
-                             this.dialogTexte = new JDialog();
-                            this.panelChoisirTexte  = new PanelChoisirTexte(this.ctrl, this.lstJoueurs.get(cpt));
+                            this.dialogTexte = new JDialog();
+                            //this.panelChoisirTexte  = new PanelChoisirTexte(this.ctrl, this.lstJoueurs.get(cpt));
 
                             this.dialogTexte.setSize(400,200);
                             this.dialogTexte.setLocation(200, 50);
                             this.dialogTexte.setResizable(false);
-                            this.dialogTexte.add(this.panelInfosJoueur);
+                            //this.dialogTexte.add(this.panelInfosJoueur);
                             this.dialogTexte.pack();
                             this.dialogTexte.setVisible(true);
 
@@ -125,13 +125,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                             break;
         }
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) 
-    {
-
-    }
-
+    
     @Override
     public void mousePressed(MouseEvent e) 
     {
@@ -150,7 +144,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
             this.repaint();
 		}
         if (buffer != null) {
-            g.drawImage(buffer, 0, 0, null);
+            //g.drawImage(buffer, 0, 0, null);
         }
 
     }
@@ -175,13 +169,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         // TODO Auto-generated method stub
     }
 
-
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) 
     {
@@ -191,9 +178,9 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
             this.repaint();
 		}
     }
-	public void mousePressed(MouseEvent e) {
+	/*public void mousePressed(MouseEvent e) {
 		updateStartingPoint(e);
-	}
+	}*/
 
 	public void mouseDragged(MouseEvent e) {
 		updateLineCoordinates(e);
