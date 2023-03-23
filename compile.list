@@ -1,10 +1,13 @@
 ./metier/Metier.java
+./metier/Cercle.java
+./metier/Carre.java
+./metier/Ligne.java
+./metier/Texte.java
 
 ./ihm/frames/FramePrincipale.java
 ./ihm/panels/PanelCentral.java
 ./ihm/panels/PanelBas.java
 ./ihm/panels/PanelHaut.java
-./ihm/Ihm.java
 
 ./controleur/Controleur.java
 

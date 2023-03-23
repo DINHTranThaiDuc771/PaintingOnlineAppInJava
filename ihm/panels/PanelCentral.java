@@ -5,10 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -37,9 +35,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     private PanelChoisirTexte panelChoisirTexte;
 
     private static final long serialVersionUID = 1L;
-    private Image buffer;
-    private Graphics2D bufferGraphics;
-    private int startX, startY, tempX, tempY;
     public PanelCentral(Controleur ctrl)
     {
         this.ctrl = ctrl;
@@ -56,7 +51,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
         this.addMouseMotionListener(this);
         this.addMouseListener      (this);
-        createBuffer();
 
     }
 
@@ -77,7 +71,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
         xB = (int) this.pointB.getX();
         yB = (int) this.pointB.getY();
-
+        
         switch ( this.ctrl.getForme() )
         {
             case "Carre" :  g2d.drawRect(xA, yA, 30, 30);
@@ -143,27 +137,11 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 			this.pointB = new Point( (int) e.getX(), (int) e.getY());
             this.repaint();
 		}
-        if (buffer != null) {
-            //g.drawImage(buffer, 0, 0, null);
-        }
+
 
     }
-	private void paintLine(Graphics graphics) {
-		//Draws the line in red
-		Graphics2D brush = (Graphics2D) graphics;
-		brush.setPaintMode();
-		brush.drawLine(startX, startY, tempX, tempY);
-		startX = tempX;
-		startY = tempY;
-        repaint(startX, startY, WIDTH, HEIGHT);
-	}
-    private void createBuffer() {
-        // buffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        buffer = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
-        bufferGraphics = (Graphics2D) buffer.getGraphics();
 
-        bufferGraphics.setColor(Color.BLACK);
-    }
+
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -184,19 +162,11 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 	}*/
 
 	public void mouseDragged(MouseEvent e) {
-		updateLineCoordinates(e);
-		paintLine(bufferGraphics);
 	}
 
-	private void updateStartingPoint(MouseEvent e) {
-		startX = e.getX();
-		startY = e.getY();
-	}
 
-	private void updateLineCoordinates(MouseEvent e) {
-		tempX = e.getX();
-		tempY = e.getY();
-	}
+
+
     //On n'utilisera pas les méthodes ci-dessous
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}

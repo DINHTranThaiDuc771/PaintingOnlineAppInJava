@@ -34,7 +34,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.ctrl = ctrl;
 
         Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(new Dimension((int)dimEcran.getWidth(), (int)dimEcran.getHeight()/12));
+        // this.setPreferredSize(new Dimension((int)dimEcran.getWidth(), (int)dimEcran.getHeight()/12));
         this.setBackground(new Color(150,150,150));
 
 
