@@ -164,6 +164,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
         bufferGraphics.setColor(Color.BLACK);
     }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub

@@ -17,9 +17,9 @@ public class FramePrincipale extends JFrame
 {
     private Controleur ctrl;
 
-    private PanelHaut panelHaut;
+    private PanelHaut    panelHaut;
     private PanelCentral panelCentral;
-    private PanelBas panelBas;
+    private PanelBas     panelBas;
 
     public FramePrincipale(Controleur ctrl)
     {
