@@ -4,8 +4,7 @@
 ./metier/Ligne.java
 ./metier/Texte.java
 ./metier/Forme.java
-./metier/reseau/ClientUDP.java
-./metier/reseau/ServerUDP.java
+./metier/reseau/Multicast.java
 
 ./ihm/frames/FramePrincipale.java
 ./ihm/panels/PanelCentral.java

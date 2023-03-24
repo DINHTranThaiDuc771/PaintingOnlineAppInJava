@@ -1,9 +1,7 @@
 package controleur;
 
 import metier.Metier;
-import metier.reseau.ClientUDP;
-import metier.reseau.ServerUDP;
-
+import metier.reseau.Multicast;
 import java.awt.Color;
 import java.io.IOException;
 
@@ -12,8 +10,7 @@ import ihm.frames.FramePrincipale;
 public class Controleur {
     private Metier metier;
     private FramePrincipale frmPrincipale;
-    private ServerUDP userServer;
-    private ClientUDP userClient;
+    private Multicast user;
 
     public Controleur() {
         this.metier = new Metier(this);
@@ -36,20 +33,20 @@ public class Controleur {
         return this.frmPrincipale.getForme();
     }
 
-    public void addCarre(int xA, int yA, int width, int height) {
+    public synchronized void addCarre(int xA, int yA, int width, int height) {
         this.metier.addCarre(xA, yA, width, height);
-        this.signalNetWork();
+        if (this.user != null )this.signalNetWork();
     }
 
-    public void addLigne(int xA, int yA, int xB, int yB) {
+    public synchronized void addLigne(int xA, int yA, int xB, int yB) {
         this.metier.addLigne(xA, yA, xB, yB, 1);
-        this.signalNetWork();
+        if (this.user != null )this.signalNetWork();
 
     }
 
-    public void addCercle(int xA, int yA, int width, int height) {
+    public synchronized void addCercle(int xA, int yA, int width, int height) {
         this.metier.addCercle(xA, yA, width, height);
-        this.signalNetWork();
+        if (this.user != null )this.signalNetWork();
 
     }
 
@@ -57,42 +54,52 @@ public class Controleur {
         this.frmPrincipale.setTexte(texte);
     }
 
-    public void undo() {
+    public synchronized void undo() {
         this.metier.undo();
+        if (this.user != null )this.signalNetWork();
         majIHM();
     }
 
     public void hostGame() {
-        this.userServer = new ServerUDP();
-        this.userServer.setCtrl(this);
-        System.out.println("Server Cree");
-    }
-
-    public void joinGame() {
-        this.userClient = (ClientUDP) new ClientUDP("localhost", 12345);
-        this.userClient.setCtrl(this);
-    }
-
-    public void signalNetWork() {
         try {
-            if (this.userClient != null)
-                this.userClient.sendMetier();
-            if (this.userServer != null)
-                this.userServer.sendMetier();
+            user = new Multicast();
+            user.setCtrl(this);
         } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void joinGame(/*Ajouter des params*/ ) {
+        try {
+            
+            user = new Multicast();
+            user.setCtrl(this);
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
 
+    public void signalNetWork() {
+        user.sendMetier();
+
+    }
+
     public void majIHM() {
         this.frmPrincipale.majIHM();
-
     }
 
     public static void main(String[] args) {
         Controleur ctrl = new Controleur();
 
     }
+    public synchronized void mergeMetier(Metier metier){
+        this.metier.mergeMetier(metier);
+        this.majIHM();
+    }
+
 
 }
