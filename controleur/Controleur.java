@@ -3,7 +3,9 @@ package controleur;
 import metier.Metier;
 import metier.reseau.Multicast;
 import java.awt.Color;
+import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ihm.frames.FramePrincipale;
 
@@ -49,10 +51,10 @@ public class Controleur {
         if (this.user != null )this.signalNetWork();
 
     }
+    public synchronized void addPinceau(ArrayList<Point> aList, int epaisseur){
+        this.metier.addPinceau(aList,epaisseur);
+        if (this.user != null ) this.signalNetWork();
 
-    public void addPinceau(int xA, int yA, int xB, int yB) {
-        this.metier.addPinceau(xA, yA, xB, yB, 1);
-        this.signalNetWork();
     }
 
     public void setTexte(String texte) {
@@ -70,7 +72,6 @@ public class Controleur {
             user = new Multicast();
             user.setCtrl(this);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -82,7 +83,6 @@ public class Controleur {
             user.setCtrl(this);
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

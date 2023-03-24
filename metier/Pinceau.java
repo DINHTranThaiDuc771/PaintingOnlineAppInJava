@@ -1,57 +1,39 @@
 package metier;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Pinceau extends Forme implements Serializable{
-    
-    private int xA;
-    private int yA;
-    private int xB;
-    private int yB;
+    private ArrayList<Point> alPinceauPoint;
+    private Color color;
     private int epaisseur;
 
-    private Color couleur;
-
-    public Pinceau(int xA, int yA, int xB, int yB, Color couleur, int epaisseur) {
-        this.xA = xA;
-        this.yA = yA;
-        this.xB = xB;
-        this.yB = yB;
-        this.couleur = couleur;
-        this.epaisseur = epaisseur;
+    public Pinceau(ArrayList<Point> aList, Color couleurChoisi, int epaisseur) {
+        this.alPinceauPoint = aList;
+        this.color          = couleurChoisi;
+        this.epaisseur      = epaisseur;
     }
 
-    public int getXA() {
-        return xA;
+    public Color getCouleur() {
+        return null;
     }
 
-    public void setXA(int xA) {
-        this.xA = xA;
+    public ArrayList<Point> getAlPinceauPoint() {
+        return alPinceauPoint;
     }
 
-    public int getYA() {
-        return yA;
+    public void setAlPinceauPoint(ArrayList<Point> alPinceauPoint) {
+        this.alPinceauPoint = alPinceauPoint;
     }
 
-    public void setYA(int yA) {
-        this.yA = yA;
+    public Color getColor() {
+        return color;
     }
 
-    public int getXB() {
-        return xB;
-    }
-
-    public void setXB(int xB) {
-        this.xB = xB;
-    }
-
-    public int getYB() {
-        return yB;
-    }
-
-    public void setYB(int yB) {
-        this.yB = yB;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public int getEpaisseur() {
@@ -61,12 +43,5 @@ public class Pinceau extends Forme implements Serializable{
     public void setEpaisseur(int epaisseur) {
         this.epaisseur = epaisseur;
     }
-
-    public Color getCouleur() {
-        return couleur;
-    }
-
-    public void setCouleur(Color couleur) {
-        this.couleur = couleur;
-    }
+  
 }

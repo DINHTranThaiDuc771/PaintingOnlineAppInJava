@@ -27,7 +27,8 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
     private JCheckBox  cbTexte;
     private JButton  btnUndo;
     private JButton  btnPleinVide;
-
+    private JButton btnJoinGame;
+    private JButton btnHostGame;
     private JLabel lblHauteur;
 
     public PanelHaut(Controleur ctrl)
@@ -48,7 +49,8 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbTexte = new JCheckBox("Texte",  false);
         this.btnUndo = new JButton("Annuler");
         this.btnPleinVide = new JButton("Plein/Vide");
-
+        this.btnJoinGame = new JButton("Join");
+        this.btnHostGame = new JButton("Host");
         this.lblHauteur = new JLabel("");
         this.lblHauteur.setPreferredSize(new Dimension(10,(int)dimEcran.getHeight()/14));
 
@@ -73,7 +75,11 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbTexte.addItemListener(this);
         this.btnUndo.addActionListener(this);
         this.btnPleinVide.addActionListener(this);
+        this.btnHostGame.addActionListener(this);
+        this.btnJoinGame.addActionListener(this);
 
+        this.add(this.btnHostGame);
+        this.add(this.btnJoinGame);
         this.add(this.cbCarre);
         this.add(this.cbRond);
         this.add(this.cbLigne);
@@ -189,5 +195,13 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         {
 
         }
+        if (e.getSource() == this.btnHostGame)
+        {
+            this.ctrl.hostGame();
+        }
+        if (e.getSource() == this.btnJoinGame)
+        {
+            this.ctrl.joinGame();
+        }        
     }
 }

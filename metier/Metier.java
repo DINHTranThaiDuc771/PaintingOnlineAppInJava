@@ -1,5 +1,6 @@
 package metier;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -28,8 +29,8 @@ public class Metier implements Serializable{
         this.alForme.add(new Cercle(xA, yA, width, height, this.ctrl.getCouleurChoisi()));
     }
 
-    public void addPinceau(int xA, int yA, int xB, int yB, int epaisseur){
-        this.alForme.add(new Pinceau(xA, yA, xB, yB, this.ctrl.getCouleurChoisi(), epaisseur));
+    public void addPinceau(ArrayList<Point> aList, int epaisseur){
+        this.alForme.add(new Pinceau(aList, this.ctrl.getCouleurChoisi(), epaisseur));
     }
 
     public void undo() 

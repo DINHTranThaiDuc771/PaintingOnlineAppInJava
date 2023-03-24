@@ -72,9 +72,9 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         this.g2d = (Graphics2D) g;
         this.g2d.setStroke(new BasicStroke(4));
 
-        int x      = Math.min(pointA.x, pointB.x);
-        int y      = Math.min(pointA.y, pointB.y);
-        int width  = Math.abs(pointA.x - pointB.x);
+        int x = Math.min(pointA.x, pointB.x);
+        int y = Math.min(pointA.y, pointB.y);
+        int width = Math.abs(pointA.x - pointB.x);
         int height = Math.abs(pointA.y - pointB.y);
 
         /* Dessiner la démonstration des formes */
@@ -83,18 +83,18 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         int xB = (int) this.pointB.getX();
         int yB = (int) this.pointB.getY();
 
-        if(this.ctrl.getForme() == "Carre")
+        if (this.ctrl.getForme() == "Carre")
             g.drawRect(x, y, width, height);
 
-        if(this.ctrl.getForme() == "Rond")
+        if (this.ctrl.getForme() == "Rond")
             g.drawOval(x, y, width, height);
 
-        if(this.ctrl.getForme() == "Ligne")
+        if (this.ctrl.getForme() == "Ligne")
             g.drawLine(xA, yA, xB, yB);
 
-        if(this.ctrl.getForme() == "Pinceau") {
-            for (Point p : this.alPinceauPoint) {
-                g.drawLine(xA, yA, xB, yB);
+        if (this.ctrl.getForme() == "Pinceau") {
+            for (Point point : this.alPinceauPoint) {
+                g2d.drawOval((int) point.getX(), (int) point.getY(), 5, 5);
             }
         }
         /*------------------------------------- */
@@ -104,7 +104,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
             if (c instanceof Carre) {
                 Carre carre = (Carre) c;
                 g2d.setColor(carre.getCouleur());
-                
+
                 g2d.drawRect(carre.getXA(), carre.getYA(), carre.getWidth(), carre.getHeight());
             }
 
@@ -120,11 +120,12 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                 g2d.drawLine(ligne.getXA(), ligne.getYA(), ligne.getXB(), ligne.getYB());
             }
 
-            if (c instanceof Pinceau){
+            if (c instanceof Pinceau) {
                 Pinceau pinceau = (Pinceau) c;
                 g2d.setColor(pinceau.getCouleur());
-                for (int i = 0; i < this.alPinceauPoint.size() - 1; i++) {
-                    g2d.drawLine(this.alPinceauPoint.get(i).x, this.alPinceauPoint.get(i).y, this.alPinceauPoint.get(i + 1).x, this.alPinceauPoint.get(i + 1).y);
+                ArrayList<Point> aListPoint = pinceau.getAlPinceauPoint();
+                for (Point point : aListPoint) {
+                    g2d.drawOval((int) point.getX(), (int) point.getY(), 5, 5);
                 }
             }
         }
@@ -135,14 +136,17 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     public void mousePressed(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
             this.pointA = new Point((int) e.getX(), (int) e.getY());
-            this.alPinceauPoint.add(e.getPoint());
+            if (this.ctrl.getForme() == "Pinceau")
+                this.alPinceauPoint.add(e.getPoint());
+
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         this.pointB = new Point((int) e.getX(), (int) e.getY());
-
+        if (this.ctrl.getForme() == "Pinceau")
+            this.alPinceauPoint.add(e.getPoint());
         int xA = (int) this.pointA.getX();
         int yA = (int) this.pointA.getY();
         int xB = (int) this.pointB.getX();
@@ -232,7 +236,9 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     break;
 
                 case "Pinceau": {
-                    this.ctrl.addPinceau(xA, yA, xB, yB);
+                    this.ctrl.addPinceau((ArrayList<Point>) this.alPinceauPoint.clone(), 5);
+                    this.alPinceauPoint.clear();
+
                     this.repaint();
                     break;
                 }
@@ -248,10 +254,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-    }
+ 
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -260,34 +263,34 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
     public void mouseDragged(MouseEvent e) {
         this.pointB = new Point((int) e.getX(), (int) e.getY());
-        this.alPinceauPoint.add(e.getPoint());
-
+        if (this.ctrl.getForme() == "Pinceau")
+            this.alPinceauPoint.add(e.getPoint());
         int xA = (int) this.pointA.getX();
         int yA = (int) this.pointA.getY();
         int xB = (int) this.pointB.getX();
         int yB = (int) this.pointB.getY();
 
-        if (SwingUtilities.isLeftMouseButton(e)){
-            if (xB - xA > 0 && yB - yA > 0){
+        if (SwingUtilities.isLeftMouseButton(e)) {
+            if (xB - xA > 0 && yB - yA > 0) {
                 this.g2d.drawRect(xA, yA, xB - xA, yB - yA);
                 this.repaint();
             }
-            if (xB - xA > 0 && yB - yA < 0){
+            if (xB - xA > 0 && yB - yA < 0) {
                 this.g2d.drawRect(xA, yB, xB - xA, yA - yB);
                 this.repaint();
             }
-            if (xB - xA < 0 && yB - yA > 0){
+            if (xB - xA < 0 && yB - yA > 0) {
                 this.g2d.drawRect(xB, yA, xA - xB, yB - yA);
                 this.repaint();
             }
-            if (xB - xA < 0 && yB - yA < 0){
+            if (xB - xA < 0 && yB - yA < 0) {
                 this.g2d.drawRect(xB, yB, xA - xB, yA - yB);
                 this.repaint();
             }
-            
+
         }
 
-    this.repaint();
+        this.repaint();
 
     }
 
@@ -299,5 +302,11 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     }
 
     public void mouseMoved(MouseEvent e) {
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }
