@@ -37,6 +37,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     private Dimension dimEcran;
     private JTextField textField;
     private static final long serialVersionUID = 1L;
+    private Graphics2D g2d;
 
     public PanelCentral(Controleur ctrl) {
         this.ctrl = ctrl;
@@ -62,15 +63,36 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setStroke(new BasicStroke(4));
+        this.g2d = (Graphics2D) g;
+        this.g2d.setStroke(new BasicStroke(4));
+
+        int x      = Math.min(pointA.x, pointB.x);
+        int y      = Math.min(pointA.y, pointB.y);
+        int width  = Math.abs(pointA.x - pointB.x);
+        int height = Math.abs(pointA.y - pointB.y);
+
+        /* Dessiner la démonstration des formes */
+        int xA = (int) this.pointA.getX();
+        int yA = (int) this.pointA.getY();
+        int xB = (int) this.pointB.getX();
+        int yB = (int) this.pointB.getY();
+
+        if(this.ctrl.getForme() == "Carre")
+            g.drawRect(x, y, width, height);
+
+        if(this.ctrl.getForme() == "Rond")
+            g.drawOval(x, y, width, height);
+
+        if(this.ctrl.getForme() == "Ligne")
+            g.drawLine(xA, yA, xB, yB);
+        /*------------------------------------- */
 
         /* Redessiner tous les carrés déjà présent dans l'ArrayList */
         for (Forme c : this.ctrl.getMetier().getAlFormes()) {
             if (c instanceof Carre) {
                 Carre carre = (Carre) c;
                 g2d.setColor(carre.getCouleur());
-
+                
                 g2d.drawRect(carre.getXA(), carre.getYA(), carre.getWidth(), carre.getHeight());
             }
 
@@ -91,83 +113,90 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
     @Override
     public void mousePressed(MouseEvent e) {
-
         if (SwingUtilities.isLeftMouseButton(e)) {
-
             this.pointA = new Point((int) e.getX(), (int) e.getY());
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
         this.pointB = new Point((int) e.getX(), (int) e.getY());
 
         int xA = (int) this.pointA.getX();
         int yA = (int) this.pointA.getY();
         int xB = (int) this.pointB.getX();
-        int yB = (int) this.pointB.getY(); 
+        int yB = (int) this.pointB.getY();
+
         if (SwingUtilities.isLeftMouseButton(e)) {
             yA = (int) this.pointA.getY();
             switch (this.ctrl.getForme()) {
                 case "Carre":
-                    if (xB - xA > 0 && yB - yA > 0)
-                        ctrl.addCarre(xA, yA, xB-xA, yB-yA);
-                    if (xB - xA > 0 && yB - yA < 0)
-                        ctrl.addCarre(xA, yB, xB-xA, yA-yB);
-                    if (xB - xA < 0 && yB - yA > 0)
-                        ctrl.addCarre(xB, yA, xA-xB, yB-yA);
-                    if (xB - xA < 0 && yB - yA < 0)
-                        ctrl.addCarre(xB, yB, xA-xB, yA-yB);
+                    if (xB - xA > 0 && yB - yA > 0) {
+                        ctrl.addCarre(xA, yA, xB - xA, yB - yA);
+                    }
+                    if (xB - xA > 0 && yB - yA < 0) {
+                        ctrl.addCarre(xA, yB, xB - xA, yA - yB);
+                    }
+                    if (xB - xA < 0 && yB - yA > 0) {
+                        ctrl.addCarre(xB, yA, xA - xB, yB - yA);
+                    }
+                    if (xB - xA < 0 && yB - yA < 0) {
+                        ctrl.addCarre(xB, yB, xA - xB, yA - yB);
+                    }
+
                     this.repaint();
                     break;
 
                 case "Rond":
                     if (xB - xA > 0 && yB - yA > 0)
-                        ctrl.addCercle(xA, yA, xB-xA, yB-yA);
+                        ctrl.addCercle(xA, yA, xB - xA, yB - yA);
                     if (xB - xA > 0 && yB - yA < 0)
-                        ctrl.addCercle(xA, yB, xB-xA, yA-yB);
+                        ctrl.addCercle(xA, yB, xB - xA, yA - yB);
                     if (xB - xA < 0 && yB - yA > 0)
-                        ctrl.addCercle(xB, yA, xA-xB, yB-yA);
+                        ctrl.addCercle(xB, yA, xA - xB, yB - yA);
                     if (xB - xA < 0 && yB - yA < 0)
-                        ctrl.addCercle(xB, yB, xA-xB, yA-yB);
+                        ctrl.addCercle(xB, yB, xA - xB, yA - yB);
                     this.repaint();
                     break;
 
                 case "Texte":
-                    /*ImageIcon icon = new ImageIcon("./donnees/logo.png");
-                     String texte = (String) JOptionPane.showInputDialog(null,"Entrez votre texte
-                     :\n","Texte à afficher",JOptionPane.QUESTION_MESSAGE,icon,null,"");
-                    this.dialogTexte = new JDialog();
-                     this.panelChoisirTexte = new PanelChoisirTexte(this.ctrl,
-                     this.lstJoueurs.get(cpt));
-
-                    this.dialogTexte.setSize(400, 200);
-                    this.dialogTexte.setLocation(xA, yA);
-                    this.dialogTexte.setResizable(false);
-                    this.dialogTexte.add(this);
-                    this.dialogTexte.pack();
-                    this.dialogTexte.setVisible(true);
-
-                     Permet de detecter la fermeture de la fenêtre de dialogue 
-                    this.dialogTexte.addWindowListener(new WindowListener()
-                    {
-                        public void windowClosing    (WindowEvent e) {}
-                        public void windowOpened     (WindowEvent e) {}
-                        public void windowClosed     (WindowEvent e) {}
-                        public void windowIconified  (WindowEvent e) {}
-                        public void windowDeiconified(WindowEvent e) {}
-                        public void windowActivated  (WindowEvent e) {}
-                        public void windowDeactivated(WindowEvent e) { dialogTexte.dispose();}
-                    });
-this.dialogTexte = new JDialog();
-                    this.panelChoisirTexte  = new PanelChoisirTexte(this.ctrl);
-
-                    this.dialogTexte.setSize((int)this.dimEcran.getWidth()/4, (int)this.dimEcran.getHeight()/10);
-                    this.dialogTexte.setLocation((int)dimEcran.getWidth()/3, (int)dimEcran.getHeight()/4);
-                    this.dialogTexte.setResizable(false);
-                    this.dialogTexte.add(this.panelChoisirTexte);
-                    this.dialogTexte.setVisible(true);*/
+                    /*
+                     * ImageIcon icon = new ImageIcon("./donnees/logo.png");
+                     * String texte = (String) JOptionPane.showInputDialog(null,"Entrez votre texte
+                     * :\n","Texte à afficher",JOptionPane.QUESTION_MESSAGE,icon,null,"");
+                     * this.dialogTexte = new JDialog();
+                     * this.panelChoisirTexte = new PanelChoisirTexte(this.ctrl,
+                     * this.lstJoueurs.get(cpt));
+                     * 
+                     * this.dialogTexte.setSize(400, 200);
+                     * this.dialogTexte.setLocation(xA, yA);
+                     * this.dialogTexte.setResizable(false);
+                     * this.dialogTexte.add(this);
+                     * this.dialogTexte.pack();
+                     * this.dialogTexte.setVisible(true);
+                     * 
+                     * Permet de detecter la fermeture de la fenêtre de dialogue
+                     * this.dialogTexte.addWindowListener(new WindowListener()
+                     * {
+                     * public void windowClosing (WindowEvent e) {}
+                     * public void windowOpened (WindowEvent e) {}
+                     * public void windowClosed (WindowEvent e) {}
+                     * public void windowIconified (WindowEvent e) {}
+                     * public void windowDeiconified(WindowEvent e) {}
+                     * public void windowActivated (WindowEvent e) {}
+                     * public void windowDeactivated(WindowEvent e) { dialogTexte.dispose();}
+                     * });
+                     * this.dialogTexte = new JDialog();
+                     * this.panelChoisirTexte = new PanelChoisirTexte(this.ctrl);
+                     * 
+                     * this.dialogTexte.setSize((int)this.dimEcran.getWidth()/4,
+                     * (int)this.dimEcran.getHeight()/10);
+                     * this.dialogTexte.setLocation((int)dimEcran.getWidth()/3,
+                     * (int)dimEcran.getHeight()/4);
+                     * this.dialogTexte.setResizable(false);
+                     * this.dialogTexte.add(this.panelChoisirTexte);
+                     * this.dialogTexte.setVisible(true);
+                     */
 
                     this.textField = new JTextField();
                     textField.setBounds(xA, yA, 100, 30);
@@ -191,8 +220,6 @@ this.dialogTexte = new JDialog();
         }
     }
 
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
@@ -205,7 +232,33 @@ this.dialogTexte = new JDialog();
 
     public void mouseDragged(MouseEvent e) {
         this.pointB = new Point((int) e.getX(), (int) e.getY());
-        repaint();
+        /*int xA = (int) this.pointA.getX();
+        int yA = (int) this.pointA.getY();
+        int xB = (int) this.pointB.getX();
+        int yB = (int) this.pointB.getY();
+
+        if (SwingUtilities.isLeftMouseButton(e)){
+            if (xB - xA > 0 && yB - yA > 0){
+                this.g2d.drawRect(xA, yA, xB - xA, yB - yA);
+                this.repaint();
+            }
+            if (xB - xA > 0 && yB - yA < 0){
+                this.g2d.drawRect(xA, yB, xB - xA, yA - yB);
+                this.repaint();
+            }
+            if (xB - xA < 0 && yB - yA > 0){
+                this.g2d.drawRect(xB, yA, xA - xB, yB - yA);
+                this.repaint();
+            }
+            if (xB - xA < 0 && yB - yA < 0){
+                this.g2d.drawRect(xB, yB, xA - xB, yA - yB);
+                this.repaint();
+            }
+            
+        }*/
+
+    this.repaint();
+
     }
 
     // On n'utilisera pas les méthodes ci-dessous
