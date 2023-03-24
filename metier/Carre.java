@@ -1,8 +1,9 @@
 package metier;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Carre extends Forme{
+public class Carre extends Forme implements Serializable{
     private int xA;
     private int yA;
     private int width;

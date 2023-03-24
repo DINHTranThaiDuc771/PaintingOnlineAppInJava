@@ -1,11 +1,12 @@
 package metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import controleur.Controleur;
 
-public class Metier {
-    private Controleur ctrl;
+public class Metier implements Serializable{
+    private transient  Controleur ctrl;
 
     private ArrayList<Forme>  alForme;
 
@@ -30,6 +31,9 @@ public class Metier {
     {
         if (!this.alForme.isEmpty())
             this.alForme.remove(this.alForme.size()-1);
+    }
+    public String toString (){
+        return this.alForme.toString();
     }
     /*----------------------- */
     /* Getters and Setters    */
