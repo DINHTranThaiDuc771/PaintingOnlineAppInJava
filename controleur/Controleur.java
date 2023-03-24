@@ -50,6 +50,11 @@ public class Controleur {
 
     }
 
+    public void addPinceau(int xA, int yA, int xB, int yB) {
+        this.metier.addPinceau(xA, yA, xB, yB, 1);
+        this.signalNetWork();
+    }
+
     public void setTexte(String texte) {
         this.frmPrincipale.setTexte(texte);
     }

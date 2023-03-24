@@ -23,6 +23,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
     private JCheckBox  cbCarre;
 	private JCheckBox  cbRond;
     private JCheckBox  cbLigne;
+    private JCheckBox  cbPinceau;
     private JCheckBox  cbTexte;
     private JButton  btnUndo;
     private JButton  btnPleinVide;
@@ -43,6 +44,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbCarre = new JCheckBox("Carré",  false);
         this.cbRond = new JCheckBox("Rond",  false);
         this.cbLigne = new JCheckBox("Ligne",  true);
+        this.cbPinceau = new JCheckBox("Pinceau",  false);
         this.cbTexte = new JCheckBox("Texte",  false);
         this.btnUndo = new JButton("Annuler");
         this.btnPleinVide = new JButton("Plein/Vide");
@@ -54,10 +56,12 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbRond.setIcon (mCbkIcon);
         this.cbLigne.setIcon (mCbkIcon);
         this.cbTexte.setIcon (mCbkIcon);
+        this.cbPinceau.setIcon (mCbkIcon);
 
         this.cbCarre.setPreferredSize(new Dimension(110, 40));
         this.cbRond.setPreferredSize(new Dimension(110, 40));
         this.cbLigne.setPreferredSize(new Dimension(110, 40));
+        this.cbPinceau.setPreferredSize(new Dimension(110, 40));
         this.cbTexte.setPreferredSize(new Dimension(110, 40));
         this.btnUndo.setPreferredSize(new Dimension(110, 40));
         this.btnPleinVide.setPreferredSize(new Dimension(110, 40));
@@ -65,6 +69,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbCarre.addItemListener(this);
         this.cbRond.addItemListener(this);
         this.cbLigne.addItemListener(this);
+        this.cbPinceau.addItemListener(this);
         this.cbTexte.addItemListener(this);
         this.btnUndo.addActionListener(this);
         this.btnPleinVide.addActionListener(this);
@@ -72,6 +77,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.add(this.cbCarre);
         this.add(this.cbRond);
         this.add(this.cbLigne);
+        this.add(this.cbPinceau);
         this.add(this.cbTexte);
         this.add(this.btnUndo);
         this.add(this.btnPleinVide);
@@ -86,6 +92,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         if ( this.cbRond.isSelected() ) { formeChoisi = "Rond"; }
         if ( this.cbLigne.isSelected() ) { formeChoisi = "Ligne"; }
         if ( this.cbTexte.isSelected() ) { formeChoisi = "Texte"; }
+        if ( this.cbPinceau.isSelected()) { formeChoisi = "Pinceau"; }
 
         return formeChoisi;
     }
@@ -104,6 +111,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
                 if ( this.cbRond.isSelected() ) this.cbRond.setSelected(false);
                 if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
                 if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+                if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
             }
         }
 
@@ -118,6 +126,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
                 if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
                 if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
                 if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+                if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
             }
         }
 
@@ -132,6 +141,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
                 if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
                 if ( this.cbRond.isSelected() ) this.cbRond.setSelected(false);
                 if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+                if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
             }
         }
 
@@ -146,8 +156,25 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
                 if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
                 if ( this.cbRond.isSelected() ) this .cbRond.setSelected(false);
                 if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
+                if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
             }
         }
+
+        if (e.getSource() == this.cbPinceau ) 
+        {
+            if ( !this.cbPinceau.isSelected() )
+            {
+                this.cbPinceau.setSelected(false);
+            }
+            else
+            {
+                if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
+                if ( this.cbRond.isSelected() ) this .cbRond.setSelected(false);
+                if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
+                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+            }
+        }
+
     }
 
     @Override

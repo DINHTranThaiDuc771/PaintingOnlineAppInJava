@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -27,14 +28,18 @@ import metier.Carre;
 import metier.Cercle;
 import metier.Forme;
 import metier.Ligne;
+import metier.Pinceau;
 
 public class PanelCentral extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
     private Controleur ctrl;
     private Point pointA, pointB;
+    private ArrayList<Point> alPinceauPoint;
+
     private JDialog dialogTexte;
     private String texte;
     private PanelChoisirTexte panelChoisirTexte;
     private Dimension dimEcran;
+
     private JTextField textField;
     private static final long serialVersionUID = 1L;
     private Graphics2D g2d;
@@ -51,6 +56,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
         this.pointA = new Point();
         this.pointB = new Point();
+        this.alPinceauPoint = new ArrayList<Point>();
 
         this.addMouseMotionListener(this);
         this.addMouseListener(this);
@@ -85,6 +91,12 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
         if(this.ctrl.getForme() == "Ligne")
             g.drawLine(xA, yA, xB, yB);
+
+        if(this.ctrl.getForme() == "Pinceau") {
+            for (Point p : this.alPinceauPoint) {
+                g.drawLine(xA, yA, xB, yB);
+            }
+        }
         /*------------------------------------- */
 
         /* Redessiner tous les carrés déjà présent dans l'ArrayList */
@@ -107,6 +119,14 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                 g2d.setColor(ligne.getCouleur());
                 g2d.drawLine(ligne.getXA(), ligne.getYA(), ligne.getXB(), ligne.getYB());
             }
+
+            if (c instanceof Pinceau){
+                Pinceau pinceau = (Pinceau) c;
+                g2d.setColor(pinceau.getCouleur());
+                for (int i = 0; i < this.alPinceauPoint.size() - 1; i++) {
+                    g2d.drawLine(this.alPinceauPoint.get(i).x, this.alPinceauPoint.get(i).y, this.alPinceauPoint.get(i + 1).x, this.alPinceauPoint.get(i + 1).y);
+                }
+            }
         }
 
     }
@@ -115,6 +135,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     public void mousePressed(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
             this.pointA = new Point((int) e.getX(), (int) e.getY());
+            this.alPinceauPoint.add(e.getPoint());
         }
     }
 
@@ -204,10 +225,17 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
                     this.add(textField);
                     break;
+
                 case "Ligne":
                     this.ctrl.addLigne(xA, yA, xB, yB);
                     this.repaint();
                     break;
+
+                case "Pinceau": {
+                    this.ctrl.addPinceau(xA, yA, xB, yB);
+                    this.repaint();
+                    break;
+                }
 
                 case " ":
                     System.out.println("Aucune forme sélectionné");
@@ -232,7 +260,9 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
     public void mouseDragged(MouseEvent e) {
         this.pointB = new Point((int) e.getX(), (int) e.getY());
-        /*int xA = (int) this.pointA.getX();
+        this.alPinceauPoint.add(e.getPoint());
+
+        int xA = (int) this.pointA.getX();
         int yA = (int) this.pointA.getY();
         int xB = (int) this.pointB.getX();
         int yB = (int) this.pointB.getY();
@@ -255,7 +285,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                 this.repaint();
             }
             
-        }*/
+        }
 
     this.repaint();
 
