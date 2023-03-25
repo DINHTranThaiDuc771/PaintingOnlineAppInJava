@@ -17,7 +17,7 @@ public class Pinceau extends Forme implements Serializable{
     }
 
     public Color getCouleur() {
-        return null;
+        return this.color;
     }
 
     public ArrayList<Point> getAlPinceauPoint() {

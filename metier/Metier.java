@@ -33,6 +33,10 @@ public class Metier implements Serializable{
         this.alForme.add(new Pinceau(aList, this.ctrl.getCouleurChoisi(), epaisseur));
     }
 
+    public void addTexte(int xA, int yA){
+        this.alForme.add(new Texte(this.ctrl.getTexte(), xA, yA, this.ctrl.getCouleurChoisi()));
+    }
+
     public void undo() 
     {
         if (!this.alForme.isEmpty())
