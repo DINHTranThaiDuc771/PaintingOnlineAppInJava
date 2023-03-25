@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.plaf.metal.MetalCheckBoxIcon;
 
 import controleur.Controleur;
@@ -27,9 +28,8 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
     private JCheckBox  cbTexte;
     private JButton  btnUndo;
     private JButton  btnPleinVide;
-    private JButton btnJoinGame;
-    private JButton btnHostGame;
     private JLabel lblHauteur;
+    private JTextField txtTexte;
 
     public PanelHaut(Controleur ctrl)
     {
@@ -42,6 +42,10 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
 
         MetalCheckBoxIcon mCbkIcon = new MetalCheckBoxIcon () { protected int getControlSize() { return 30; } };
 
+        JLabel lblTexte, lblEspace;
+        lblTexte = new JLabel("Saisissez votre texte : ");
+        lblEspace = new JLabel("");
+
         this.cbCarre = new JCheckBox("Carré",  false);
         this.cbRond = new JCheckBox("Rond",  false);
         this.cbLigne = new JCheckBox("Ligne",  true);
@@ -49,10 +53,9 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbTexte = new JCheckBox("Texte",  false);
         this.btnUndo = new JButton("Annuler");
         this.btnPleinVide = new JButton("Plein/Vide");
-        this.btnJoinGame = new JButton("Join");
-        this.btnHostGame = new JButton("Host");
         this.lblHauteur = new JLabel("");
         this.lblHauteur.setPreferredSize(new Dimension(10,(int)dimEcran.getHeight()/14));
+        this.txtTexte = new JTextField();
 
         this.cbCarre.setIcon (mCbkIcon);
         this.cbRond.setIcon (mCbkIcon);
@@ -60,6 +63,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbTexte.setIcon (mCbkIcon);
         this.cbPinceau.setIcon (mCbkIcon);
 
+        lblEspace.setPreferredSize(new Dimension(300, 40));
         this.cbCarre.setPreferredSize(new Dimension(110, 40));
         this.cbRond.setPreferredSize(new Dimension(110, 40));
         this.cbLigne.setPreferredSize(new Dimension(110, 40));
@@ -67,6 +71,7 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbTexte.setPreferredSize(new Dimension(110, 40));
         this.btnUndo.setPreferredSize(new Dimension(110, 40));
         this.btnPleinVide.setPreferredSize(new Dimension(110, 40));
+        this.txtTexte.setPreferredSize(new Dimension(300, 30));
 
         this.cbCarre.addItemListener(this);
         this.cbRond.addItemListener(this);
@@ -75,11 +80,8 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbTexte.addItemListener(this);
         this.btnUndo.addActionListener(this);
         this.btnPleinVide.addActionListener(this);
-        this.btnHostGame.addActionListener(this);
-        this.btnJoinGame.addActionListener(this);
 
-        this.add(this.btnHostGame);
-        this.add(this.btnJoinGame);
+        this.add(lblEspace);
         this.add(this.cbCarre);
         this.add(this.cbRond);
         this.add(this.cbLigne);
@@ -87,7 +89,9 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.add(this.cbTexte);
         this.add(this.btnUndo);
         this.add(this.btnPleinVide);
-        this.add(this.lblHauteur);
+        this.add(this.lblHauteur); 
+        this.add(lblTexte);
+        this.add(this.txtTexte);
     }
 
     public String getForme()
@@ -101,6 +105,10 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         if ( this.cbPinceau.isSelected()) { formeChoisi = "Pinceau"; }
 
         return formeChoisi;
+    }
+
+   public String getTexte() {
+        return this.txtTexte.getText();
     }
 
     @Override
@@ -194,14 +202,6 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         if ( e.getSource() == this.btnPleinVide ) 
         {
 
-        }
-        if (e.getSource() == this.btnHostGame)
-        {
-            this.ctrl.hostGame();
-        }
-        if (e.getSource() == this.btnJoinGame)
-        {
-            this.ctrl.joinGame();
-        }        
+        }   
     }
 }

@@ -14,6 +14,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.plaf.metal.MetalCheckBoxIcon;
 
 import controleur.Controleur;
@@ -33,6 +34,10 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
     private JCheckBox cbCouleurChoisi;
 
     private JButton btnChoisirCouleur;
+    private JButton btnJoinGame;
+    private JButton btnHostGame;
+    private JTextField txtName;
+    private JTextField txtIP;
 
     public PanelBas(Controleur ctrl)
     {
@@ -41,6 +46,23 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
         Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(new Dimension((int)dimEcran.getWidth(), (int)dimEcran.getHeight()/12));
         this.setBackground(new Color(150,150,150));
+
+        JLabel lblName, lblIP, lblEspace;
+        lblName = new JLabel("Pseudo : ");
+        lblIP = new JLabel("      IP du salon : ");
+        lblEspace = new JLabel("");
+
+        this.btnJoinGame = new JButton("Join");
+        this.btnHostGame = new JButton("Host");
+        this.btnJoinGame.setPreferredSize(new Dimension(90, 35));
+        this.btnHostGame.setPreferredSize(new Dimension(90, 35));
+
+        this.txtName = new JTextField();
+        this.txtIP = new JTextField();
+        this.txtName.setPreferredSize(new Dimension(200, 30));
+        this.txtIP.setPreferredSize(new Dimension(200, 30));
+
+        lblEspace.setPreferredSize(new Dimension(400, 30));
 
         this.cbRouge = new JCheckBox("",  false);
         this.cbBleu = new JCheckBox("",  false);
@@ -55,7 +77,7 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
         this.lblCouleurChoisi.setPreferredSize(new Dimension(130,(int)dimEcran.getHeight()/14));
 
         this.btnChoisirCouleur = new JButton("Palette de couleur");
-        this.btnChoisirCouleur.setPreferredSize(new Dimension(150,30));
+        this.btnChoisirCouleur.setPreferredSize(new Dimension(150,35));
 
         this.cbRouge.setBackground(Color.RED);
         this.cbBleu.setBackground(Color.BLUE);
@@ -91,7 +113,18 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
         this.cbCouleurChoisi.addItemListener(this);
 
         this.btnChoisirCouleur.addActionListener(this);
+        this.btnHostGame.addActionListener(this);
+        this.btnJoinGame.addActionListener(this);
 
+        this.add(lblName);
+        this.add(this.txtName);
+        this.add(lblIP);
+        this.add(this.txtIP);
+        this.add(new JLabel("  "));
+        this.add(this.btnHostGame);
+        this.add(new JLabel("  "));
+        this.add(this.btnJoinGame);
+        this.add(lblEspace);
         this.add(this.btnChoisirCouleur);
         this.add(this.cbRouge);
         this.add(this.cbBleu);
@@ -233,5 +266,13 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
             if (c != null)
                 this.cbCouleurChoisi.setBackground(c);
         }
+        if (e.getSource() == this.btnHostGame)
+        {
+            this.ctrl.hostGame();
+        }
+        if (e.getSource() == this.btnJoinGame)
+        {
+            this.ctrl.joinGame();
+        }     
     }  
 }

@@ -54,14 +54,21 @@ public class Controleur {
         if (this.user != null )this.sendMetier();
 
     }
+
+    public synchronized void addTexte(int xA, int yA)
+    {
+        this.metier.addTexte(xA, yA);
+        if (this.user != null )this.signalNetWork();
+    }
+
     public synchronized void addPinceau(ArrayList<Point> aList, int epaisseur){
         this.metier.addPinceau(aList,epaisseur);
         if (this.user != null ) this.sendMetier();
 
     }
 
-    public void setTexte(String texte) {
-        this.frmPrincipale.setTexte(texte);
+    public String getTexte() {
+        return this.frmPrincipale.getTexte();
     }
 
     public synchronized void undo() {

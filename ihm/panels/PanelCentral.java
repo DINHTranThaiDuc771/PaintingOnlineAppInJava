@@ -30,30 +30,21 @@ import metier.Forme;
 import metier.Ligne;
 import metier.Mouse;
 import metier.Pinceau;
+import metier.Texte;
 
 public class PanelCentral extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
     private Controleur ctrl;
     private Point pointA, pointB;
     private ArrayList<Point> alPinceauPoint;
 
-    private JDialog dialogTexte;
-    private String texte;
-    private PanelChoisirTexte panelChoisirTexte;
-    private Dimension dimEcran;
-
-    private JTextField textField;
     private static final long serialVersionUID = 1L;
     private Graphics2D g2d;
 
     public PanelCentral(Controleur ctrl) {
         this.ctrl = ctrl;
         this.setLayout(null);
-        // Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        // this.setPreferredSize(new Dimension((int)dimEcran.getWidth(), 800));
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        this.dialogTexte = null;
-        this.texte = null;
 
         this.pointA = new Point();
         this.pointB = new Point();
@@ -62,10 +53,6 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         this.addMouseMotionListener(this);
         this.addMouseListener(this);
 
-    }
-
-    public void setTexte(String texte) {
-        this.texte = texte;
     }
 
     protected void paintComponent(Graphics g) {
@@ -129,6 +116,12 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     g2d.drawOval((int) point.getX(), (int) point.getY(), 5, 5);
                 }
             }
+
+            if (c instanceof Texte) {
+                Texte texte = (Texte) c;
+                g2d.setColor(texte.getCouleur());
+                g2d.drawString(texte.getTexte(), (int) texte.getXA(), (int) texte.getYA());
+            }
         }
         for (Mouse mouse : this.ctrl.getMetier().getSetMouse())
         {
@@ -190,49 +183,8 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     break;
 
                 case "Texte":
-                    /*
-                     * ImageIcon icon = new ImageIcon("./donnees/logo.png");
-                     * String texte = (String) JOptionPane.showInputDialog(null,"Entrez votre texte
-                     * :\n","Texte à afficher",JOptionPane.QUESTION_MESSAGE,icon,null,"");
-                     * this.dialogTexte = new JDialog();
-                     * this.panelChoisirTexte = new PanelChoisirTexte(this.ctrl,
-                     * this.lstJoueurs.get(cpt));
-                     * 
-                     * this.dialogTexte.setSize(400, 200);
-                     * this.dialogTexte.setLocation(xA, yA);
-                     * this.dialogTexte.setResizable(false);
-                     * this.dialogTexte.add(this);
-                     * this.dialogTexte.pack();
-                     * this.dialogTexte.setVisible(true);
-                     * 
-                     * Permet de detecter la fermeture de la fenêtre de dialogue
-                     * this.dialogTexte.addWindowListener(new WindowListener()
-                     * {
-                     * public void windowClosing (WindowEvent e) {}
-                     * public void windowOpened (WindowEvent e) {}
-                     * public void windowClosed (WindowEvent e) {}
-                     * public void windowIconified (WindowEvent e) {}
-                     * public void windowDeiconified(WindowEvent e) {}
-                     * public void windowActivated (WindowEvent e) {}
-                     * public void windowDeactivated(WindowEvent e) { dialogTexte.dispose();}
-                     * });
-                     * this.dialogTexte = new JDialog();
-                     * this.panelChoisirTexte = new PanelChoisirTexte(this.ctrl);
-                     * 
-                     * this.dialogTexte.setSize((int)this.dimEcran.getWidth()/4,
-                     * (int)this.dimEcran.getHeight()/10);
-                     * this.dialogTexte.setLocation((int)dimEcran.getWidth()/3,
-                     * (int)dimEcran.getHeight()/4);
-                     * this.dialogTexte.setResizable(false);
-                     * this.dialogTexte.add(this.panelChoisirTexte);
-                     * this.dialogTexte.setVisible(true);
-                     */
-
-                    this.textField = new JTextField();
-                    textField.setBounds(xA, yA, 100, 30);
-                    textField.setBorder(null);
-
-                    this.add(textField);
+                    this.ctrl.addTexte(xA, yA);
+                    this.repaint();
                     break;
 
                 case "Ligne":
@@ -312,7 +264,5 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }
