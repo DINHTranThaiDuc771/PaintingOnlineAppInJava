@@ -82,7 +82,7 @@ public class Controleur {
             this.metier.setMouseName(name);
             user = new Multicast(ip);
             user.setCtrl(this);
-
+            this.user.sendSalutation();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -33,14 +33,17 @@ public class Multicast {
                             byte[] data = packet.getData();
                             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
                             Object receivedObject = ois.readObject();
-
-                            // Merge the received Metier object with the local Metier object
+                            //Handle message
+                            if (receivedObject instanceof Salut) {
+                                this.sendMetier();
+                            }
                             if (receivedObject instanceof Metier) {
                                 Metier receiveMetier = (Metier) receivedObject;
                                 System.out.println("Metier received: " + receiveMetier.toString());
 
                                 this.ctrl.mergeMetier(receiveMetier);
 
+                            // Merge the received Metier object with the local Metier object
 
                             }
                             if (receivedObject instanceof Mouse){
@@ -94,6 +97,26 @@ public class Multicast {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void sendSalutation(){
+        Salut salut = new Salut();
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(salut);
+            byte[] buffer = baos.toByteArray();
+            oos.reset();
+            baos.reset();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, port);
+            socket.send(packet);
+            System.out.println("Salut sent: ");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }    
+    }
+    class Salut implements Serializable{
+        public Salut(){}
     }
     public void setCtrl(Controleur ctrl) {
         this.ctrl = ctrl;
