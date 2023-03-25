@@ -6,6 +6,7 @@ import java.net.*;
 import controleur.Controleur;
 import metier.Metier;
 import metier.Mouse;
+import metier.Salut;
 
 public class Multicast {
     private Metier metier;
@@ -39,7 +40,7 @@ public class Multicast {
                             }
                             if (receivedObject instanceof Metier) {
                                 Metier receiveMetier = (Metier) receivedObject;
-                                System.out.println("Metier received: " + receiveMetier.toString());
+                                // System.out.println("Metier received: " + receiveMetier.toString());
 
                                 this.ctrl.mergeMetier(receiveMetier);
 
@@ -48,8 +49,8 @@ public class Multicast {
                             }
                             if (receivedObject instanceof Mouse){
                                 Mouse mouseReceive = (Mouse) receivedObject;
-                                System.out.println("Mouse received:" + mouseReceive.toString());
-                                System.out.println("Mouse Set Updated:" + this.ctrl.getMetier().getSetMouse());
+                                // System.out.println("Mouse received:" + mouseReceive.toString());
+                                // System.out.println("Mouse Set Updated:" + this.ctrl.getMetier().getSetMouse());
                             
                                 this.ctrl.updateMouse(mouseReceive);
                                 this.ctrl.majIHM();
@@ -75,7 +76,7 @@ public class Multicast {
             baos.reset();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, port);
             socket.send(packet);
-            System.out.println("Metier sent: " + this.metier.toString());
+            // System.out.println("Metier sent: " + this.metier.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +93,7 @@ public class Multicast {
             baos.reset();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, port);
             socket.send(packet);
-            System.out.println("Mouse sent: " + this.ctrl.getMouse().toString());
+            // System.out.println("Mouse sent: " + this.ctrl.getMouse().toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,9 +116,7 @@ public class Multicast {
             e.printStackTrace();
         }    
     }
-    class Salut implements Serializable{
-        public Salut(){}
-    }
+
     public void setCtrl(Controleur ctrl) {
         this.ctrl = ctrl;
         this.metier = ctrl.getMetier();
