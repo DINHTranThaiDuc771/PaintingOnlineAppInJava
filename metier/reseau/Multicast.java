@@ -6,6 +6,7 @@ import java.util.ResourceBundle.Control;
 
 import controleur.Controleur;
 import metier.Metier;
+import metier.Mouse;
 
 public class Multicast {
     private Metier metier;
@@ -13,6 +14,7 @@ public class Multicast {
     private int port;
     private MulticastSocket socket;
     private Controleur ctrl;
+
     public Multicast() throws IOException {
 
         port = 12345;
@@ -31,12 +33,26 @@ public class Multicast {
                             // Deserialize the Metier object from the packet data
                             byte[] data = packet.getData();
                             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-                            Metier receivedMetier = (Metier) ois.readObject();
+                            Object receivedObject = ois.readObject();
 
                             // Merge the received Metier object with the local Metier object
-                            this.ctrl.mergeMetier(receivedMetier);
+                            if (receivedObject instanceof Metier) {
+                                Metier receiveMetier = (Metier) receivedObject;
+                                System.out.println("Metier received: " + receiveMetier.toString());
+
+                                this.ctrl.mergeMetier(receiveMetier);
+
+
+                            }
+                            if (receivedObject instanceof Mouse){
+                                Mouse mouseReceive = (Mouse) receivedObject;
+                                System.out.println("Mouse received:" + mouseReceive.toString());
+                                System.out.println("Mouse Set Updated:" + this.ctrl.getMetier().getSetMouse());
+                            
+                                this.ctrl.updateMouse(mouseReceive);
+                                this.ctrl.majIHM();
+                            }
                             // Print the updated value of the Metier object
-                            System.out.println("Received update: " + metier.toString());
                         }
                     } catch (IOException | ClassNotFoundException e) {
                         System.out.println("Error MulticastSender receive");
@@ -57,16 +73,32 @@ public class Multicast {
             baos.reset();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, port);
             socket.send(packet);
-            System.out.println("Message sent to multicast group: " +this.metier.toString()) ;
+            System.out.println("Metier sent: " + this.metier.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-    public void setCtrl(Controleur ctrl)
-    {
+    public void sendMouse() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(this.ctrl.getMouse());
+            byte[] buffer = baos.toByteArray();
+            oos.reset();
+            baos.reset();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, port);
+            socket.send(packet);
+            System.out.println("Mouse sent: " + this.ctrl.getMouse().toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setCtrl(Controleur ctrl) {
         this.ctrl = ctrl;
         this.metier = ctrl.getMetier();
     }
+
 }

@@ -28,6 +28,7 @@ import metier.Carre;
 import metier.Cercle;
 import metier.Forme;
 import metier.Ligne;
+import metier.Mouse;
 import metier.Pinceau;
 
 public class PanelCentral extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
@@ -129,7 +130,11 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                 }
             }
         }
-
+        for (Mouse mouse : this.ctrl.getMetier().getSetMouse())
+        {
+            g2d.setColor(Color.BLACK);
+            g2d.drawRect(mouse.getX(), mouse.getY(), 5, 5);
+        }
     }
 
     @Override
@@ -302,6 +307,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     }
 
     public void mouseMoved(MouseEvent e) {
+        this.ctrl.setMouse((int)e.getX(),(int)e.getY());
     }
 
     @Override

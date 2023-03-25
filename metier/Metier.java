@@ -3,6 +3,7 @@ package metier;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import controleur.Controleur;
 
@@ -10,10 +11,10 @@ public class Metier implements Serializable{
     private transient  Controleur ctrl;
 
     private ArrayList<Forme>  alForme;
-
+    private transient HashSet<Mouse> setMouse; 
     public Metier(Controleur ctrl){
         this.ctrl = ctrl;
-
+        this.setMouse = new HashSet<Mouse>();
         this.alForme  = new ArrayList<Forme> ();
     }
 
@@ -51,7 +52,28 @@ public class Metier implements Serializable{
         this.alForme = (ArrayList<Forme>) metier.alForme.clone();
     }
 
+    public void addMouse(Mouse mouse)
+    {
+        for (Mouse m : setMouse )
+        {
+            if (m.equals(mouse))
+                return;
+        }
+        this.setMouse.add(mouse);
+    }
 
+    public void updateMouse(Mouse mouseReceive) {
+        this.addMouse(mouseReceive);
+        for (Mouse m : setMouse )
+        {
+            if (m.equals(mouseReceive))
+                m.setXY(mouseReceive.getX(), mouseReceive.getY());
+        }
+    }
+
+    public HashSet<Mouse> getSetMouse() {
+        return this.setMouse;
+    }
 
 
 }
