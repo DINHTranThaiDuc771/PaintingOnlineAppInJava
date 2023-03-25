@@ -268,11 +268,11 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
         }
         if (e.getSource() == this.btnHostGame)
         {
-            this.ctrl.hostGame();
+            this.ctrl.hostGame(this.txtName.getText(), this.txtIP.getText());
         }
         if (e.getSource() == this.btnJoinGame)
         {
-            this.ctrl.joinGame();
+            this.ctrl.joinGame(this.txtName.getText(), this.txtIP.getText());
         }     
     }  
 }

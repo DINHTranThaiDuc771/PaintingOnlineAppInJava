@@ -15,10 +15,10 @@ public class Multicast {
     private MulticastSocket socket;
     private Controleur ctrl;
 
-    public Multicast() throws IOException {
+    public Multicast(String ip) throws IOException {
 
         port = 12345;
-        group = InetAddress.getByName("224.0.0.1");
+        group = InetAddress.getByName(ip);
         socket = new MulticastSocket(port);
         socket.joinGroup(group);
         new Thread(
