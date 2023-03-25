@@ -7,12 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.plaf.metal.MetalCheckBoxIcon;
@@ -35,7 +37,6 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
 
     private JButton btnChoisirCouleur;
     private JButton btnJoinGame;
-    private JButton btnHostGame;
     private JTextField txtName;
     private JTextField txtIP;
 
@@ -53,16 +54,14 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
         lblEspace = new JLabel("");
 
         this.btnJoinGame = new JButton("Join");
-        this.btnHostGame = new JButton("Host");
         this.btnJoinGame.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/28));
-        this.btnHostGame.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/28));
 
         this.txtName = new JTextField();
         this.txtIP = new JTextField();
         this.txtName.setPreferredSize(new Dimension((int)dimEcran.getWidth()/10, (int)dimEcran.getHeight()/30));
         this.txtIP.setPreferredSize(new Dimension((int)dimEcran.getWidth()/10, (int)dimEcran.getHeight()/30));
 
-        lblEspace.setPreferredSize(new Dimension((int)dimEcran.getWidth()/5, (int)dimEcran.getHeight()/26));
+        lblEspace.setPreferredSize(new Dimension((int)dimEcran.getWidth()/4, (int)dimEcran.getHeight()/26));
 
         this.cbRouge = new JCheckBox("",  false);
         this.cbBleu = new JCheckBox("",  false);
@@ -113,16 +112,13 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
         this.cbCouleurChoisi.addItemListener(this);
 
         this.btnChoisirCouleur.addActionListener(this);
-        this.btnHostGame.addActionListener(this);
         this.btnJoinGame.addActionListener(this);
 
         this.add(lblName);
         this.add(this.txtName);
         this.add(lblIP);
         this.add(this.txtIP);
-        this.add(new JLabel("  "));
-        this.add(this.btnHostGame);
-        this.add(new JLabel("  "));
+        this.add(new JLabel("   "));
         this.add(this.btnJoinGame);
         this.add(lblEspace);
         this.add(this.btnChoisirCouleur);
@@ -266,13 +262,29 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
             if (c != null)
                 this.cbCouleurChoisi.setBackground(c);
         }
-        if (e.getSource() == this.btnHostGame)
-        {
-            this.ctrl.hostGame(this.txtName.getText(), this.txtIP.getText());
-        }
+
         if (e.getSource() == this.btnJoinGame)
         {
-            this.ctrl.joinGame(this.txtName.getText(), this.txtIP.getText());
+            String ip = this.txtIP.getText().toString();
+            String[] tabSplit = ip.split(Pattern.quote("."));
+            if ( Integer.parseInt(tabSplit[0]) >= 224 && Integer.parseInt(tabSplit[0]) <= 235 )
+            {
+                System.out.println("2");
+                if ( Integer.parseInt(tabSplit[3]) >= 1 && Integer.parseInt(tabSplit[3]) <= 254 )
+                {
+                    System.out.println("3");
+                    this.ctrl.joinGame(this.txtName.getText(), this.txtIP.getText());
+                    System.out.println("4");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this.ctrl.getFramePrincipale(), "Vous avez saisi une IP invalide, elle doit être entre : '224.0.0.1' et '235.255.255.254'.");
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this.ctrl.getFramePrincipale(), "Vous avez saisi une IP invalide, elle doit être entre : '224.0.0.1' et '235.255.255.254'.");
+            }
         }     
     }  
 }

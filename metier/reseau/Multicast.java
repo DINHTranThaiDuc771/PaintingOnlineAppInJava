@@ -2,7 +2,6 @@ package metier.reseau;
 
 import java.io.*;
 import java.net.*;
-import java.util.ResourceBundle.Control;
 
 import controleur.Controleur;
 import metier.Metier;

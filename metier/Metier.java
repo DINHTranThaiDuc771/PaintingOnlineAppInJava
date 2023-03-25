@@ -66,6 +66,14 @@ public class Metier implements Serializable{
         this.setMouse.add(mouse);
     }
 
+    public void setMouseName(String name)
+    {
+        for (Mouse m : setMouse )
+        {
+            m.setName(name);
+        }
+    }
+
     public void updateMouse(Mouse mouseReceive) {
         this.addMouse(mouseReceive);
         for (Mouse m : setMouse )
