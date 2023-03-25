@@ -54,15 +54,15 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
 
         this.btnJoinGame = new JButton("Join");
         this.btnHostGame = new JButton("Host");
-        this.btnJoinGame.setPreferredSize(new Dimension(90, 35));
-        this.btnHostGame.setPreferredSize(new Dimension(90, 35));
+        this.btnJoinGame.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/28));
+        this.btnHostGame.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/28));
 
         this.txtName = new JTextField();
         this.txtIP = new JTextField();
-        this.txtName.setPreferredSize(new Dimension(200, 30));
-        this.txtIP.setPreferredSize(new Dimension(200, 30));
+        this.txtName.setPreferredSize(new Dimension((int)dimEcran.getWidth()/10, (int)dimEcran.getHeight()/30));
+        this.txtIP.setPreferredSize(new Dimension((int)dimEcran.getWidth()/10, (int)dimEcran.getHeight()/30));
 
-        lblEspace.setPreferredSize(new Dimension(400, 30));
+        lblEspace.setPreferredSize(new Dimension((int)dimEcran.getWidth()/5, (int)dimEcran.getHeight()/26));
 
         this.cbRouge = new JCheckBox("",  false);
         this.cbBleu = new JCheckBox("",  false);
@@ -74,10 +74,10 @@ public class PanelBas extends JPanel implements ItemListener, ActionListener
         this.cbCouleurChoisi.setEnabled(false);
 
         this.lblCouleurChoisi = new JLabel(" Couleur sélectionné : ");
-        this.lblCouleurChoisi.setPreferredSize(new Dimension(130,(int)dimEcran.getHeight()/14));
+        this.lblCouleurChoisi.setPreferredSize(new Dimension((int)dimEcran.getWidth()/14,(int)dimEcran.getHeight()/14));
 
         this.btnChoisirCouleur = new JButton("Palette de couleur");
-        this.btnChoisirCouleur.setPreferredSize(new Dimension(150,35));
+        this.btnChoisirCouleur.setPreferredSize(new Dimension((int)dimEcran.getWidth()/12, (int)dimEcran.getHeight()/28));
 
         this.cbRouge.setBackground(Color.RED);
         this.cbBleu.setBackground(Color.BLUE);
