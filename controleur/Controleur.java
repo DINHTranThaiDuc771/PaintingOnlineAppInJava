@@ -126,6 +126,7 @@ public class Controleur {
 
     public void setMouse(int x, int y) {
         this.mouse.setXY(x, y);
+        this.majIHM();
         this.sendMouse();
     }
 
