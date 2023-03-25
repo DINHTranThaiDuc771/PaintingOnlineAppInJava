@@ -128,11 +128,16 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         }
         for (Mouse mouse : this.ctrl.getMetier().getSetMouse())
         {
+            if (mouse == this.ctrl.getMouse())  continue;
             g2d.setColor(Color.BLACK);
-            g2d.drawRect(mouse.getX(), mouse.getY(), 5, 5);
+            this.drawArrow(g2d,mouse.getX(), mouse.getY(),5,120);
         }
     }
-
+    private void drawArrow(Graphics2D g2d, double x, double y, double size, double angle) {
+        g2d.drawLine((int) x, (int) y, (int) (x + size * Math.cos(Math.toRadians(angle))), (int) (y - size * Math.sin(Math.toRadians(angle))));
+        g2d.drawLine((int) (x + size * Math.cos(Math.toRadians(angle))), (int) (y - size * Math.sin(Math.toRadians(angle))), (int) (x + size * Math.cos(Math.toRadians(angle - 135))), (int) (y - size * Math.sin(Math.toRadians(angle - 135))));
+        g2d.drawLine((int) (x + size * Math.cos(Math.toRadians(angle))), (int) (y - size * Math.sin(Math.toRadians(angle))), (int) (x + size * Math.cos(Math.toRadians(angle + 135))), (int) (y - size * Math.sin(Math.toRadians(angle + 135))));
+    }
     @Override
     public void mousePressed(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
