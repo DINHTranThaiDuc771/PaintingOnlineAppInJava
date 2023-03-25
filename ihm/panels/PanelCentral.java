@@ -59,32 +59,35 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         super.paintComponent(g);
         this.g2d = (Graphics2D) g;
         this.g2d.setStroke(new BasicStroke(4));
-
-        int x = Math.min(pointA.x, pointB.x);
-        int y = Math.min(pointA.y, pointB.y);
-        int width = Math.abs(pointA.x - pointB.x);
-        int height = Math.abs(pointA.y - pointB.y);
-
-        /* Dessiner la démonstration des formes */
-        int xA = (int) this.pointA.getX();
-        int yA = (int) this.pointA.getY();
-        int xB = (int) this.pointB.getX();
-        int yB = (int) this.pointB.getY();
-
-        if (this.ctrl.getForme() == "Carre")
-            g.drawRect(x, y, width, height);
-
-        if (this.ctrl.getForme() == "Rond")
-            g.drawOval(x, y, width, height);
-
-        if (this.ctrl.getForme() == "Ligne")
-            g.drawLine(xA, yA, xB, yB);
-
-        if (this.ctrl.getForme() == "Pinceau") {
-            for (Point point : this.alPinceauPoint) {
-                g2d.drawOval((int) point.getX(), (int) point.getY(), 5, 5);
+        if (this.pointA != null && this.pointB != null)
+        {
+            int x = Math.min(pointA.x, pointB.x);
+            int y = Math.min(pointA.y, pointB.y);
+            int width = Math.abs(pointA.x - pointB.x);
+            int height = Math.abs(pointA.y - pointB.y);
+    
+            /* Dessiner la démonstration des formes */
+            int xA = (int) this.pointA.getX();
+            int yA = (int) this.pointA.getY();
+            int xB = (int) this.pointB.getX();
+            int yB = (int) this.pointB.getY();
+    
+            if (this.ctrl.getForme() == "Carre")
+                g.drawRect(x, y, width, height);
+    
+            if (this.ctrl.getForme() == "Rond")
+                g.drawOval(x, y, width, height);
+    
+            if (this.ctrl.getForme() == "Ligne")
+                g.drawLine(xA, yA, xB, yB);
+    
+            if (this.ctrl.getForme() == "Pinceau") {
+                for (Point point : this.alPinceauPoint) {
+                    g.drawOval((int) point.getX(), (int) point.getY(), 5, 5);
+                }
             }
         }
+
         /*------------------------------------- */
 
         /* Redessiner tous les carrés déjà présent dans l'ArrayList */
@@ -209,6 +212,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
                     break;
             }
         }
+        this.pointA = this.pointB = null;
     }
 
  
@@ -219,33 +223,12 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
     }
 
     public void mouseDragged(MouseEvent e) {
+        this.ctrl.setMouse((int)e.getX(),(int)e.getY());
+
         this.pointB = new Point((int) e.getX(), (int) e.getY());
         if (this.ctrl.getForme() == "Pinceau")
             this.alPinceauPoint.add(e.getPoint());
-        int xA = (int) this.pointA.getX();
-        int yA = (int) this.pointA.getY();
-        int xB = (int) this.pointB.getX();
-        int yB = (int) this.pointB.getY();
-
-        if (SwingUtilities.isLeftMouseButton(e)) {
-            if (xB - xA > 0 && yB - yA > 0) {
-                this.g2d.drawRect(xA, yA, xB - xA, yB - yA);
-                this.repaint();
-            }
-            if (xB - xA > 0 && yB - yA < 0) {
-                this.g2d.drawRect(xA, yB, xB - xA, yA - yB);
-                this.repaint();
-            }
-            if (xB - xA < 0 && yB - yA > 0) {
-                this.g2d.drawRect(xB, yA, xA - xB, yB - yA);
-                this.repaint();
-            }
-            if (xB - xA < 0 && yB - yA < 0) {
-                this.g2d.drawRect(xB, yB, xA - xB, yA - yB);
-                this.repaint();
-            }
-
-        }
+ 
 
         this.repaint();
 
