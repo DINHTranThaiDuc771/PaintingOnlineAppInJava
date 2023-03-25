@@ -55,7 +55,11 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.btnPleinVide = new JButton("Plein/Vide");
         this.lblHauteur = new JLabel("");
         this.lblHauteur.setPreferredSize(new Dimension(10,(int)dimEcran.getHeight()/14));
+
         this.txtTexte = new JTextField();
+        this.txtTexte.setEnabled(false);
+        this.txtTexte.setBackground(new Color(220,220,220));
+        this.txtTexte.setEnabled(false);
 
         this.cbCarre.setIcon (mCbkIcon);
         this.cbRond.setIcon (mCbkIcon);
@@ -124,7 +128,13 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
             {
                 if ( this.cbRond.isSelected() ) this.cbRond.setSelected(false);
                 if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
-                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+                if ( this.cbTexte.isSelected() )
+                {
+                    this.cbTexte.setSelected(false);
+                    this.txtTexte.setText("");
+                    this.txtTexte.setBackground(new Color(220,220,220));
+                    this.txtTexte.setEnabled(false);
+                }
                 if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
             }
         }
@@ -139,7 +149,13 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
             {
                 if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
                 if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
-                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+                if ( this.cbTexte.isSelected() )
+                {
+                    this.cbTexte.setSelected(false);
+                    this.txtTexte.setText("");
+                    this.txtTexte.setBackground(new Color(220,220,220));
+                    this.txtTexte.setEnabled(false);
+                }
                 if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
             }
         }
@@ -154,7 +170,13 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
             {
                 if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
                 if ( this.cbRond.isSelected() ) this.cbRond.setSelected(false);
-                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+                if ( this.cbTexte.isSelected() )
+                {
+                    this.cbTexte.setSelected(false);
+                    this.txtTexte.setText("");
+                    this.txtTexte.setBackground(new Color(220,220,220));
+                    this.txtTexte.setEnabled(false);
+                }
                 if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
             }
         }
@@ -164,6 +186,8 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
             if ( !this.cbTexte.isSelected() )
             {
                 this.cbTexte.setSelected(false);
+                this.txtTexte.setEnabled(false);
+                this.txtTexte.setBackground(new Color(220,220,220));
             }
             else
             {
@@ -171,6 +195,8 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
                 if ( this.cbRond.isSelected() ) this .cbRond.setSelected(false);
                 if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
                 if ( this.cbPinceau.isSelected() ) this.cbPinceau.setSelected(false);
+                this.txtTexte.setEnabled(true);
+                this.txtTexte.setBackground(new Color(255, 255, 255));
             }
         }
 
@@ -185,7 +211,13 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
                 if ( this.cbCarre.isSelected() ) this.cbCarre.setSelected(false);
                 if ( this.cbRond.isSelected() ) this .cbRond.setSelected(false);
                 if ( this.cbLigne.isSelected() ) this.cbLigne.setSelected(false);
-                if ( this.cbTexte.isSelected() ) this.cbTexte.setSelected(false);
+                if ( this.cbTexte.isSelected() )
+                {
+                    this.cbTexte.setSelected(false);
+                    this.txtTexte.setText("");
+                    this.txtTexte.setBackground(new Color(220,220,220));
+                    this.txtTexte.setEnabled(false);
+                }
             }
         }
 
