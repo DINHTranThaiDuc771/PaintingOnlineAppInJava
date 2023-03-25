@@ -2,7 +2,6 @@ package ihm.panels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -12,16 +11,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.JDialog;
 
 import controleur.Controleur;
 import metier.Carre;
@@ -130,13 +124,14 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
         {
             if (mouse == this.ctrl.getMouse())  continue;
             g2d.setColor(Color.BLACK);
-            this.drawArrow(g2d,mouse.getX(), mouse.getY(),5,120);
+            this.drawArrow(g2d,mouse.getX(), mouse.getY(),5,120, mouse.getName());
         }
     }
-    private void drawArrow(Graphics2D g2d, double x, double y, double size, double angle) {
+    private void drawArrow(Graphics2D g2d, double x, double y, double size, double angle, String mouseName) {
         g2d.drawLine((int) x, (int) y, (int) (x + size * Math.cos(Math.toRadians(angle))), (int) (y - size * Math.sin(Math.toRadians(angle))));
         g2d.drawLine((int) (x + size * Math.cos(Math.toRadians(angle))), (int) (y - size * Math.sin(Math.toRadians(angle))), (int) (x + size * Math.cos(Math.toRadians(angle - 135))), (int) (y - size * Math.sin(Math.toRadians(angle - 135))));
         g2d.drawLine((int) (x + size * Math.cos(Math.toRadians(angle))), (int) (y - size * Math.sin(Math.toRadians(angle))), (int) (x + size * Math.cos(Math.toRadians(angle + 135))), (int) (y - size * Math.sin(Math.toRadians(angle + 135))));
+        g2d.drawString( mouseName, (int) x+14, (int) y+10 );
     }
     @Override
     public void mousePressed(MouseEvent e) {
@@ -248,6 +243,7 @@ public class PanelCentral extends JPanel implements ActionListener, MouseListene
 
     public void mouseMoved(MouseEvent e) {
         this.ctrl.setMouse((int)e.getX(),(int)e.getY());
+        
     }
 
     @Override

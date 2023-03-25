@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -29,6 +30,8 @@ public class FramePrincipale extends JFrame
         this.setTitle("Application de dessin partagé");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Ouvre la fenêtre en pleine écran
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(new Dimension((int)dimEcran.getWidth(), (int)dimEcran.getHeight()* 120/130));
         this.setLayout(new BorderLayout());
         Image icon = Toolkit.getDefaultToolkit().getImage("./donnees/logo.png");    
         this.setIconImage(icon);    

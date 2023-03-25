@@ -2,7 +2,6 @@ package metier.reseau;
 
 import java.io.*;
 import java.net.*;
-import java.util.ResourceBundle.Control;
 
 import controleur.Controleur;
 import metier.Metier;
@@ -15,10 +14,10 @@ public class Multicast {
     private MulticastSocket socket;
     private Controleur ctrl;
 
-    public Multicast() throws IOException {
+    public Multicast(String ip) throws IOException {
 
         port = 12345;
-        group = InetAddress.getByName("224.0.0.1");
+        group = InetAddress.getByName(ip);
         socket = new MulticastSocket(port);
         socket.joinGroup(group);
         new Thread(

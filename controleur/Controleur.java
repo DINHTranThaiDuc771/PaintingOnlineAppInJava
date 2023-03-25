@@ -77,19 +77,10 @@ public class Controleur {
         majIHM();
     }
 
-    public void hostGame() {
+    public void joinGame(String name, String ip) {
         try {
-            user = new Multicast();
-            user.setCtrl(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void joinGame(/*Ajouter des params*/ ) {
-        try {
-            
-            user = new Multicast();
+            this.metier.setMouseName(name);
+            user = new Multicast(ip);
             user.setCtrl(this);
 
         } catch (IOException e) {
