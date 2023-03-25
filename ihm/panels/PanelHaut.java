@@ -63,15 +63,15 @@ public class PanelHaut extends JPanel implements ItemListener, ActionListener
         this.cbTexte.setIcon (mCbkIcon);
         this.cbPinceau.setIcon (mCbkIcon);
 
-        lblEspace.setPreferredSize(new Dimension(300, 40));
-        this.cbCarre.setPreferredSize(new Dimension(110, 40));
-        this.cbRond.setPreferredSize(new Dimension(110, 40));
-        this.cbLigne.setPreferredSize(new Dimension(110, 40));
-        this.cbPinceau.setPreferredSize(new Dimension(110, 40));
-        this.cbTexte.setPreferredSize(new Dimension(110, 40));
-        this.btnUndo.setPreferredSize(new Dimension(110, 40));
-        this.btnPleinVide.setPreferredSize(new Dimension(110, 40));
-        this.txtTexte.setPreferredSize(new Dimension(300, 30));
+        lblEspace.setPreferredSize(new Dimension((int)dimEcran.getWidth()/6, (int)dimEcran.getHeight()/26));
+        this.cbCarre.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/26));
+        this.cbRond.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/26));
+        this.cbLigne.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/26));
+        this.cbPinceau.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/26));
+        this.cbTexte.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/26));
+        this.btnUndo.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/26));
+        this.btnPleinVide.setPreferredSize(new Dimension((int)dimEcran.getWidth()/18, (int)dimEcran.getHeight()/26));
+        this.txtTexte.setPreferredSize(new Dimension((int)dimEcran.getWidth()/6, (int)dimEcran.getHeight()/30));
 
         this.cbCarre.addItemListener(this);
         this.cbRond.addItemListener(this);
