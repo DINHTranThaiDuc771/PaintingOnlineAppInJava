@@ -52,6 +52,7 @@ public class Metier implements Serializable{
     public ArrayList<Forme> getAlFormes() { return this.alForme; }
 
     public void mergeMetier(Metier metier) {
+        if (metier.alForme.size()<this.alForme.size()) return;
         this.alForme.clear();
         this.alForme = (ArrayList<Forme>) metier.alForme.clone();
     }
