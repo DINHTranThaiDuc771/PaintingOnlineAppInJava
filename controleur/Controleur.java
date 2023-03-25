@@ -58,7 +58,7 @@ public class Controleur {
     public synchronized void addTexte(int xA, int yA)
     {
         this.metier.addTexte(xA, yA);
-        if (this.user != null )this.signalNetWork();
+        if (this.user != null )this.sendMetier();
     }
 
     public synchronized void addPinceau(ArrayList<Point> aList, int epaisseur){
